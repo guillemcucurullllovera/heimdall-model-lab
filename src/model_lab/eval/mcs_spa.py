@@ -20,7 +20,7 @@ class SpaResult:
     p_value_lower: float
     p_value_upper: float
     n: int
-    benchmark_beats_all_models: bool
+    benchmark_not_rejected: bool
 
 
 def hansen_spa(
@@ -43,7 +43,7 @@ def hansen_spa(
         p_value_lower=float(pvals["lower"]),
         p_value_upper=float(pvals["upper"]),
         n=len(bench),
-        benchmark_beats_all_models=float(pvals["consistent"]) >= alpha,
+        benchmark_not_rejected=float(pvals["consistent"]) >= alpha,
     )
 
 

@@ -92,7 +92,7 @@ def evaluate_branch_f(ev: BranchFEvidence) -> list[ComponentResult]:
     if have_core:
         assert ev.loss_incumbent is not None and ev.loss_challenger is not None  # narrows for mypy; `have_core` already guarantees this at runtime
         spa_res = hansen_spa(ev.loss_incumbent, ev.loss_challenger.reshape(-1, 1), alpha=SPA_ALPHA, reps=300, seed=0)
-        f3_pass = not spa_res.benchmark_beats_all_models
+        f3_pass = not spa_res.benchmark_not_rejected
         f3_val = f"spa_p={spa_res.p_value_consistent:.4f}"
         f3_missing = False
     else:

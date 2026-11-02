@@ -69,5 +69,5 @@ def test_mcs_spa_stepm_agree_on_a_clear_case() -> None:
     better = np.abs(rng.randn(n)) * 0.15
     spa = hansen_spa(bench, better.reshape(-1, 1), reps=300, seed=1)
     stepm = romano_wolf_stepm(bench, better.reshape(-1, 1), reps=300, seed=1)
-    assert not spa.benchmark_beats_all_models
+    assert not spa.benchmark_not_rejected
     assert 0 in stepm.superior_model_indices

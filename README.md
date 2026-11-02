@@ -36,6 +36,9 @@ See [SCIENTIFIC_METHODS.md](SCIENTIFIC_METHODS.md),
 [PROVENANCE.md](PROVENANCE.md). Original scientific implementations and tests are
 retained, not replaced by stubs. Historical source assertions are not release results.
 
+Release validation: **548 passed, 85 unavailable-integration skips**; all 144 source
+files pass mypy. See [TEST_RESULTS.md](TEST_RESULTS.md) for scope and original failures.
+
 ## Data and integrations
 
 No dataset, provider credential, fitted production parameter archive or private

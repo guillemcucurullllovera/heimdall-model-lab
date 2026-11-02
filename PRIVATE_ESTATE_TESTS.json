@@ -1,0 +1,467 @@
+{
+  "initial_unscoped_run": {
+    "passed": 548,
+    "failed": 56,
+    "errors": 10,
+    "skipped": 19
+  },
+  "network_failure": "One network-marked live FRED call failed provider authentication; network is opt-in in the public release",
+  "note": "These failures are not fixed or claimed passed. Full source and tests remain retained.",
+  "tests": [
+    {
+      "nodeid": "tests/acceptance/test_at10_v1_freeze.py::test_v1_freeze_manifest_verifies_with_zero_violations",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires the excluded original freeze manifest and signed private estate",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/acceptance/test_at12_task_registry_blocking.py::test_status_is_derived_not_discretionary",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Asserts original private registry readiness; public empty registry correctly fails closed as BLOCKED",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/acceptance/test_at12_task_registry_blocking.py::test_prereg_against_the_now_unblocked_t_tail_is_accepted",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Asserts original private registry readiness; public empty registry correctly fails closed as BLOCKED",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/acceptance/test_p0_1_licence_firewall.py::test_real_task_registry_builds_cleanly_against_the_real_data_estate",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Asserts original private registry readiness; public empty registry correctly fails closed as BLOCKED",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_amc_promotion_evaluator.py::test_no_model_is_evaluated_failed_this_pass",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_amc_promotion_evaluator.py::test_no_promotion_without_economic_evidence",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_amc_promotion_evaluator.py::test_no_promotion_from_in_sample_or_statistical_oos_evidence_alone",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_amc_promotion_evaluator.py::test_no_promotion_from_insufficient_prospective_sample",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_amc_promotion_evaluator.py::test_missing_data_handling_for_unimplemented_models",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_amc_promotion_evaluator.py::test_missing_data_handling_for_implemented_models_with_no_amc_hook",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_amc_promotion_evaluator.py::test_baseline_comparison_integrity_never_fabricated",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_amc_promotion_evaluator.py::test_gate_code_references_point_to_real_files_or_directories",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_amc_promotion_evaluator.py::test_leakage_gate_pass_only_for_implemented_models_with_real_remediation_history",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_amc_promotion_evaluator.py::test_nine_gates_per_model_with_correct_cascade_for_implemented_vs_literature",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_amc_promotion_evaluator.py::test_rejected_or_retired_research_state_is_not_conflated_with_amc_evaluated_failed",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_amc_promotion_evaluator.py::test_human_authorization_was_never_sought",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_amc_promotion_evaluator.py::test_full_export_with_amc_evaluations_is_internally_consistent",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_amc_promotion_evaluator.py::test_committed_export_file_includes_amc_promotion_evaluations",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_builder.py::test_amc_promotion_is_never_authorized",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_builder.py::test_eligible_and_rejected_cells_match_the_locked_candidate_spec_exactly",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_builder.py::test_historical_evidence_covers_all_24_cells_and_tallies_are_internally_consistent",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_builder.py::test_prospective_evidence_counts_match_the_real_committed_files",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_builder.py::test_prospective_sufficiency_is_not_established_at_this_sample_size",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_builder.py::test_research_ledger_matches_the_structured_ledger_data_exactly",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_builder.py::test_promotion_gates_match_structured_gate_data_and_only_research_shadow_gates_pass",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_builder.py::test_health_limitations_independent_review_is_pending_not_fabricated",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_builder.py::test_export_sha256_is_a_real_hash_of_the_actual_payload",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_builder.py::test_substantive_content_is_deterministic_across_two_builds",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_builder.py::test_candidate_code_fingerprint_is_a_real_hash_of_the_defining_source_files",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_builder.py::test_downstream_value_cells_cover_all_six_tickers_and_three_levels",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_builder.py::test_charts_each_include_a_required_incumbent_series",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_registry_builder.py::test_committed_export_file_is_actually_loadable_against_the_contract",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_registry_builder.py::test_no_duplicate_model_ids",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_registry_builder.py::test_amc_promotion_is_never_authorized_for_any_entry",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_registry_builder.py::test_all_five_research_states_are_actually_present_not_hidden",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_registry_builder.py::test_task_hierarchy_and_status_buckets_only_reference_real_entries",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_registry_builder.py::test_model2_composite_constituents_are_bidirectionally_consistent",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_registry_builder.py::test_implemented_and_shadow_entries_expose_real_nonempty_outputs",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_registry_builder.py::test_literature_candidates_expose_no_fabricated_evidence",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_registry_builder.py::test_every_chart_id_referenced_by_an_entry_exists_in_the_charts_list",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_registry_builder.py::test_every_chart_has_a_required_incumbent_series",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_registry_builder.py::test_vol_chart_values_match_the_real_committed_vol_ladder_json",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_registry_builder.py::test_regime_chart_values_match_the_real_committed_regime_json",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_registry_builder.py::test_export_sha256_is_a_real_hash_of_the_actual_payload",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_registry_builder.py::test_substantive_content_is_deterministic_across_two_builds",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/command_center_export/test_registry_builder.py::test_research_summary_counts_match_actual_entry_tallies",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/economic_evaluation/test_diagnostics.py::test_predicted_vs_realized_chart_has_six_series_including_realized_comparator",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires original registered private ETF snapshots; no synthetic substitution permitted for historical assertions",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/economic_evaluation/test_diagnostics.py::test_predicted_vs_realized_chart_points_are_monthly_not_daily",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires original registered private ETF snapshots; no synthetic substitution permitted for historical assertions",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/economic_evaluation/test_diagnostics.py::test_calibration_chart_reuses_committed_mz_slope_exactly",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires excluded original historical ladder/prospective/registry report artifacts",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/economic_evaluation/test_diagnostics.py::test_both_charts_have_distinct_self_referential_hashes",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires original registered private ETF snapshots; no synthetic substitution permitted for historical assertions",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/economic_evaluation/test_empirical_evaluator_export.py::test_every_static_entry_is_either_evaluated_or_explained",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires original registered private ETF snapshots; no synthetic substitution permitted for historical assertions",
+      "initial_result": "ERROR",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/economic_evaluation/test_empirical_evaluator_export.py::test_literature_candidates_are_all_not_evaluable_with_a_real_reason",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires original registered private ETF snapshots; no synthetic substitution permitted for historical assertions",
+      "initial_result": "ERROR",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/economic_evaluation/test_empirical_evaluator_export.py::test_amc_eligible_is_false_for_every_single_evaluated_model",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires original registered private ETF snapshots; no synthetic substitution permitted for historical assertions",
+      "initial_result": "ERROR",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/economic_evaluation/test_empirical_evaluator_export.py::test_evidence_discipline_flags_are_not_collapsed",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires original registered private ETF snapshots; no synthetic substitution permitted for historical assertions",
+      "initial_result": "ERROR",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/economic_evaluation/test_empirical_evaluator_export.py::test_every_evaluated_model_has_implemented_true_with_real_file_evidence",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires original registered private ETF snapshots; no synthetic substitution permitted for historical assertions",
+      "initial_result": "ERROR",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/economic_evaluation/test_empirical_evaluator_export.py::test_vol_targeting_results_never_misattribute_a_different_tickers_data",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires original registered private ETF snapshots; no synthetic substitution permitted for historical assertions",
+      "initial_result": "ERROR",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/economic_evaluation/test_empirical_evaluator_export.py::test_combo_tail_model_does_not_misattribute_gjr_ts_fz0_comparison",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires original registered private ETF snapshots; no synthetic substitution permitted for historical assertions",
+      "initial_result": "ERROR",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/economic_evaluation/test_empirical_evaluator_export.py::test_anomaly_models_use_the_shared_panel_not_per_model_divergent_data",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires original registered private ETF snapshots; no synthetic substitution permitted for historical assertions",
+      "initial_result": "ERROR",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/economic_evaluation/test_empirical_evaluator_export.py::test_changepoint_models_pool_across_all_six_tickers",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires original registered private ETF snapshots; no synthetic substitution permitted for historical assertions",
+      "initial_result": "ERROR",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/economic_evaluation/test_empirical_evaluator_export.py::test_export_is_self_consistent_and_hashed",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires original registered private ETF snapshots; no synthetic substitution permitted for historical assertions",
+      "initial_result": "ERROR",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/gate_v2/test_v1_freeze.py::test_v1_freeze_verifies_against_the_real_manifest",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires the excluded original freeze manifest and signed private estate",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/gate_v2/test_v1_freeze.py::test_write_operator_signing_request_is_unsigned",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Requires the excluded original freeze manifest and signed private estate",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/tasks/test_macro_pit_bundling.py::test_real_data_estate_has_five_snapshot_only_fields",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Asserts original private registry readiness; public empty registry correctly fails closed as BLOCKED",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/tasks/test_registry.py::test_t_tail_is_research_only_backed_by_real_registry_resolution",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Asserts original private registry readiness; public empty registry correctly fails closed as BLOCKED",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    },
+    {
+      "nodeid": "tests/unit/test_amc_promotion_gap_analysis.py::test_model2_prospective_evidence_matches_the_audited_six_and_six",
+      "classification": "PRIVATE_ESTATE_UNAVAILABLE",
+      "reason": "Asserts exact original private prospective capture counts, not a portable algorithm property",
+      "initial_result": "FAILED",
+      "release_disposition": "RETAINED_OPT_IN_NOT_VALIDATED"
+    }
+  ]
+}

@@ -36,7 +36,7 @@ class VolModelComparisonResult:
     model_ids: list[str]
     spa_benchmark: str
     spa_p_value_consistent: float
-    spa_benchmark_beats_all_challengers: bool
+    spa_benchmark_not_rejected: bool
     mcs_superior_set: list[str]
     mcs_alpha: float
 
@@ -86,7 +86,7 @@ def compare_vol_models(
         model_ids=model_ids,
         spa_benchmark="naive_trailing_rv",
         spa_p_value_consistent=spa.p_value_consistent,
-        spa_benchmark_beats_all_challengers=spa.benchmark_beats_all_models,
+        spa_benchmark_not_rejected=spa.benchmark_not_rejected,
         mcs_superior_set=[model_ids[i] for i in mcs.included_model_indices],
         mcs_alpha=0.10,
     )

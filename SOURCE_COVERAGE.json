@@ -406,8 +406,10 @@
       "source_path": "scripts/run_vol_model_comparison.py",
       "destination_path": "scripts/run_vol_model_comparison.py",
       "source_sha256": "60a079670e352fde92dd92ae6f3031d1355a96d50812de76d158f2792ff35b0e",
-      "destination_sha256": "60a079670e352fde92dd92ae6f3031d1355a96d50812de76d158f2792ff35b0e",
-      "changes": []
+      "destination_sha256": "2290bfba62049a3763d7f3db8157e3706dab7ed066549d52b2533430b36b8397",
+      "changes": [
+        "Port already-public SPA semantic correction: non-rejection is not proof benchmark dominates; numerical test unchanged"
+      ]
     },
     {
       "source_branch": "research/model-lab-phase2-20261002",
@@ -424,8 +426,11 @@
       "source_path": "src/model_lab/__init__.py",
       "destination_path": "src/model_lab/__init__.py",
       "source_sha256": "3fca9d2d6f82214954c814ee57e94eaa1e1510791339cf3ef7713a171c650d1d",
-      "destination_sha256": "3fca9d2d6f82214954c814ee57e94eaa1e1510791339cf3ef7713a171c650d1d",
-      "changes": []
+      "destination_sha256": "7dd8806fbaece4e2b084f0cf3e0a2c56b0836a5eb9cc7b4cf6460f507d375740",
+      "changes": [
+        "Replace obsolete foundation-only scope docstring with complete parent scope",
+        "Replace obsolete foundation-only scope docstring with complete parent scope"
+      ]
     },
     {
       "source_branch": "research/model-lab-phase2-20261002",
@@ -658,8 +663,11 @@
       "source_path": "src/model_lab/compare/vol_model_comparison.py",
       "destination_path": "src/model_lab/compare/vol_model_comparison.py",
       "source_sha256": "437c42795b513b9f2c31aa4ab3469a286ceca58b6783b2da56e9be8ad5c8eba2",
-      "destination_sha256": "437c42795b513b9f2c31aa4ab3469a286ceca58b6783b2da56e9be8ad5c8eba2",
-      "changes": []
+      "destination_sha256": "8c29a9932693e513b9b59dff1fc91ab7eafcac315218db287c02697f48188c51",
+      "changes": [
+        "Port already-public SPA semantic correction: non-rejection is not proof benchmark dominates; numerical test unchanged",
+        "Port already-public SPA semantic correction: non-rejection is not proof benchmark dominates; numerical test unchanged"
+      ]
     },
     {
       "source_branch": "research/model-lab-phase2-20261002",
@@ -1037,8 +1045,10 @@
       "source_path": "src/model_lab/eval/mcs_spa.py",
       "destination_path": "src/model_lab/eval/mcs_spa.py",
       "source_sha256": "5fbb2d27deaf1c9a5b4ae05e5afba1605706152f6f24365ba786cc60a5066f98",
-      "destination_sha256": "5fbb2d27deaf1c9a5b4ae05e5afba1605706152f6f24365ba786cc60a5066f98",
-      "changes": []
+      "destination_sha256": "5c9fccc88286081a42a2cdb5fdfa06c5ad2d3e33e7faafa705b7b4d5ad45d4b8",
+      "changes": [
+        "Port already-public SPA semantic correction: non-rejection is not proof benchmark dominates; numerical test unchanged"
+      ]
     },
     {
       "source_branch": "research/model-lab-phase2-20261002",
@@ -1091,8 +1101,10 @@
       "source_path": "src/model_lab/gate_v2/branch_f.py",
       "destination_path": "src/model_lab/gate_v2/branch_f.py",
       "source_sha256": "875d4c7c62ee2c2e272945a664b51d32b10775d65aedf477a0ba5cda818cee60",
-      "destination_sha256": "875d4c7c62ee2c2e272945a664b51d32b10775d65aedf477a0ba5cda818cee60",
-      "changes": []
+      "destination_sha256": "e3d265fe9799c1a540fb5dd39d68b291c1797e75f9d5da7a0261985152512253",
+      "changes": [
+        "Port already-public SPA semantic correction: non-rejection is not proof benchmark dominates; numerical test unchanged"
+      ]
     },
     {
       "source_branch": "research/model-lab-phase2-20261002",
@@ -1109,8 +1121,10 @@
       "source_path": "src/model_lab/gate_v2/branch_s.py",
       "destination_path": "src/model_lab/gate_v2/branch_s.py",
       "source_sha256": "015df0ed02934be6d2e0877eaa7933027a403e07b467c9656933cc0bb0a2e7cb",
-      "destination_sha256": "015df0ed02934be6d2e0877eaa7933027a403e07b467c9656933cc0bb0a2e7cb",
-      "changes": []
+      "destination_sha256": "b97f8fb7379449660bd57b32e5900f3a2e5ee10d4607206d4cd603a8683219ae",
+      "changes": [
+        "Port already-public SPA semantic correction: non-rejection is not proof benchmark dominates; numerical test unchanged"
+      ]
     },
     {
       "source_branch": "research/model-lab-phase2-20261002",
@@ -1785,8 +1799,10 @@
       "source_path": "tests/acceptance/test_at04_determinism.py",
       "destination_path": "tests/acceptance/test_at04_determinism.py",
       "source_sha256": "ab54fe7401b53ba5d8642e698759d880d7952812387fbba3b862730cfbbade2b",
-      "destination_sha256": "ab54fe7401b53ba5d8642e698759d880d7952812387fbba3b862730cfbbade2b",
-      "changes": []
+      "destination_sha256": "d2fb93c4264635354a428b191a60fa9cefd02cef3b58efa3da07fa7e7c53bc1d",
+      "changes": [
+        "Port already-public SPA semantic correction: non-rejection is not proof benchmark dominates; numerical test unchanged"
+      ]
     },
     {
       "source_branch": "research/model-lab-phase2-20261002",
@@ -1812,8 +1828,10 @@
       "source_path": "tests/acceptance/test_at07_scores_tests.py",
       "destination_path": "tests/acceptance/test_at07_scores_tests.py",
       "source_sha256": "ae837c22c59a0539401d543593cf6e30963bd705a244f5fa54b3a3090ea9d4ec",
-      "destination_sha256": "ae837c22c59a0539401d543593cf6e30963bd705a244f5fa54b3a3090ea9d4ec",
-      "changes": []
+      "destination_sha256": "45ca66d35ac3e28aa4e7bcc47c3271df37ca9a74467f29e400d4dee451684be4",
+      "changes": [
+        "Port already-public SPA semantic correction: non-rejection is not proof benchmark dominates; numerical test unchanged"
+      ]
     },
     {
       "source_branch": "research/model-lab-phase2-20261002",
@@ -2302,8 +2320,10 @@
       "source_path": "tests/unit/eval/test_mcs_spa.py",
       "destination_path": "tests/unit/eval/test_mcs_spa.py",
       "source_sha256": "20f7e8047200b0b91c1e86134b038084eb18dce4d02a7c00abf0b3d45a8f9085",
-      "destination_sha256": "20f7e8047200b0b91c1e86134b038084eb18dce4d02a7c00abf0b3d45a8f9085",
-      "changes": []
+      "destination_sha256": "2b2c1ddfbf948c4d8c7ed2e7a0dadf7d6a4293eee597534a759197ae819e90ee",
+      "changes": [
+        "Port already-public SPA semantic correction: non-rejection is not proof benchmark dominates; numerical test unchanged"
+      ]
     },
     {
       "source_branch": "research/model-lab-phase2-20261002",

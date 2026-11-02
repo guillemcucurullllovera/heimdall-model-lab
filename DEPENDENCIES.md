@@ -16,7 +16,7 @@ installed distribution graph; `pyproject.toml` declares direct requirements.
 | click | BSD-3-Clause | CLI |
 | pandas-market-calendars | MIT | Calendars |
 | pytest, Hypothesis, ruff, mypy | MIT, MPL-2.0, MIT, MIT | Development only |
-| skfolio, timeseriescv | BSD-3-Clause | Optional splitter test oracles |
+| skfolio, timeseriescv | BSD-3-Clause, MIT | Optional splitter test oracles |
 | hatchling | MIT | Build backend |
 
 Transitive licenses remain with their respective owners. No GPL/AGPL/SSPL runtime

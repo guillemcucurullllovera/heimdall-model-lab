@@ -102,5 +102,5 @@ def test_statistical_determinism_over_20_seeds() -> None:
     decisions = []
     for seed in range(20):
         res = hansen_spa(bench, better.reshape(-1, 1), reps=200, seed=seed)
-        decisions.append(not res.benchmark_beats_all_models)
+        decisions.append(not res.benchmark_not_rejected)
     assert sum(decisions) >= 18  # stable conclusion in >=90% of seeds for a strong effect

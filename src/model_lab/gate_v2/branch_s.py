@@ -200,7 +200,7 @@ def evaluate_branch_s(ev: BranchSEvidence) -> list[ComponentResult]:
     # framing below), a genuinely superior selected trial should NOT be
     # beaten by any sibling, so the correct, expected outcome for a real
     # edge is a LARGE p-value (fail to reject "selected is not beaten") --
-    # equivalently `spa_res.benchmark_beats_all_models is True`. Requiring a
+    # equivalently `spa_res.benchmark_not_rejected is True`. Requiring a
     # SMALL p-value here (as an earlier version of this function did) is
     # backwards: it would pass S7 precisely when some sibling trial beats
     # the selected one, and fail it when the selected trial is genuinely the
@@ -211,7 +211,7 @@ def evaluate_branch_s(ev: BranchSEvidence) -> list[ComponentResult]:
     if M >= 2:
         other_trials = np.delete(trial_matrix, ev.selected_trial_index, axis=1)
         spa_res = hansen_spa(-selected, -other_trials, alpha=SPA_STEPM_ALPHA, reps=300, seed=0)
-        s7_pass = spa_res.benchmark_beats_all_models
+        s7_pass = spa_res.benchmark_not_rejected
         s7_val = f"{spa_res.p_value_consistent:.4f}"
     else:
         s7_pass, s7_val = None, None

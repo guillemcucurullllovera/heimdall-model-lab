@@ -13,7 +13,7 @@ def test_spa_finds_a_clearly_superior_model() -> None:
     worse = np.abs(rng.randn(n)) + 1.5
     models = np.column_stack([better, worse])
     result = hansen_spa(bench, models, reps=300, seed=1)
-    assert not result.benchmark_beats_all_models
+    assert not result.benchmark_not_rejected
     assert result.n == n
 
 
@@ -25,7 +25,7 @@ def test_spa_does_not_reject_when_benchmark_is_best() -> None:
     worse2 = np.abs(rng.randn(n)) + 1.5
     models = np.column_stack([worse1, worse2])
     result = hansen_spa(bench, models, reps=300, seed=3)
-    assert result.benchmark_beats_all_models
+    assert result.benchmark_not_rejected
 
 
 def test_stepm_superior_set_contains_the_known_best_model() -> None:

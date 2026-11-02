@@ -40,7 +40,7 @@ def main() -> None:
             out_path.write_text(json.dumps(asdict(result), indent=2, default=str), encoding="utf-8")
             summary[ticker][str(h)] = {
                 "spa_p_value_consistent": result.spa_p_value_consistent,
-                "spa_benchmark_beats_all_challengers": result.spa_benchmark_beats_all_challengers,
+                "spa_benchmark_not_rejected": result.spa_benchmark_not_rejected,
                 "mcs_superior_set": result.mcs_superior_set,
             }
             print(f"{ticker} h={h}: spa_p={result.spa_p_value_consistent:.4f} mcs={result.mcs_superior_set}")

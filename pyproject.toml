@@ -1,7 +1,7 @@
 [project]
 name = "heimdall-model-lab"
 version = "0.1.0"
-description = "Forecast evaluation, model comparison and validation layer: DM/SPA/MCS tests, conformal intervals, e-processes, purged splits, Gate v2 and an evidence ledger."
+description = "Complete volatility, tail, ensemble, changepoint, regime and anomaly research models with leakage-aware statistical evaluation and evidence infrastructure."
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
 license = { text = "Apache-2.0" }

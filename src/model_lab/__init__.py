@@ -1,8 +1,7 @@
-"""MODEL-1: institutional model lab evidence foundation.
+"""Model Lab: scientific models, leakage-aware inference and research evidence.
 
-No challenger model code lives here. See MODEL1_foundation_contracts.md
-(research-corpus/model-lab/reports/model1_readiness/) for the authoritative
-scope and contracts this package implements.
+The parent release includes both foundation and challenger implementations.
+See SOURCE_COVERAGE.md for the reviewed branch union and provenance.
 """
 
 __version__ = "0.1.0"
