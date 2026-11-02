@@ -40,6 +40,14 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: gitleaks/gitleaks-action@v2
+      - name: Install checksum-verified scanner and scan complete public history
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/gitleaks"
+          gh release download v8.24.3 --repo gitleaks/gitleaks --pattern 'gitleaks_8.24.3_linux_x64.tar.gz' --pattern 'gitleaks_8.24.3_checksums.txt' --dir "$RUNNER_TEMP/gitleaks"
+          cd "$RUNNER_TEMP/gitleaks"
+          sha256sum --check --ignore-missing gitleaks_8.24.3_checksums.txt
+          tar -xzf gitleaks_8.24.3_linux_x64.tar.gz
+          cd "$GITHUB_WORKSPACE"
+          "$RUNNER_TEMP/gitleaks/gitleaks" git --log-opts=--all --redact --no-banner

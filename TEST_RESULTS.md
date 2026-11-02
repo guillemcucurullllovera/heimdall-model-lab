@@ -36,3 +36,8 @@ Original numerical warnings (degenerate bootstrap data) and NumPy/calendar
 deprecations remain visible. Synthetic checks establish execution and numerical
 properties only, not historical empirical performance, market calibration or
 investment usefulness. See LIMITATIONS.md for known estimator caveats.
+
+The first GitHub run passed Linux science/build/wheel checks but its third-party
+scanner action constructed a nonexistent root-commit-parent revision range.
+CI now installs a checksum-verified scanner and explicitly scans `--all` history,
+including the root commit, rather than depending on push-range inference.
