@@ -1,0 +1,319 @@
+{
+  "$defs": {
+    "DecisionRelevance": {
+      "enum": [
+        "confirmatory",
+        "exploratory_marginal",
+        "diagnostic_evidence_only",
+        "not_decidable"
+      ],
+      "title": "DecisionRelevance",
+      "type": "string"
+    },
+    "GuardSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "margin": {
+          "title": "Margin",
+          "type": "number"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "margin"
+      ],
+      "title": "GuardSpec",
+      "type": "object"
+    },
+    "InfluenceTier": {
+      "enum": [
+        "T0",
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "title": "InfluenceTier",
+      "type": "string"
+    },
+    "ScoreSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "bounds": {
+          "anyOf": [
+            {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              ],
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bounds"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "orientation": {
+          "description": "'lower_is_better' or 'higher_is_better'",
+          "title": "Orientation",
+          "type": "string"
+        },
+        "proper": {
+          "title": "Proper",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "name",
+        "orientation",
+        "proper"
+      ],
+      "title": "ScoreSpec",
+      "type": "object"
+    },
+    "SearchSpaceSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "hash": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Hash",
+          "type": "string"
+        },
+        "max_trials": {
+          "minimum": 1,
+          "title": "Max Trials",
+          "type": "integer"
+        },
+        "parameters": {
+          "additionalProperties": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "type": "array"
+          },
+          "description": "parameter_name -> range/choice list",
+          "title": "Parameters",
+          "type": "object"
+        },
+        "seeds": {
+          "items": {
+            "type": "integer"
+          },
+          "title": "Seeds",
+          "type": "array"
+        }
+      },
+      "required": [
+        "hash",
+        "max_trials"
+      ],
+      "title": "SearchSpaceSpec",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "N_inherited": {
+      "minimum": 0,
+      "title": "N Inherited",
+      "type": "integer"
+    },
+    "amc_entry_ceiling": {
+      "$ref": "#/$defs/InfluenceTier"
+    },
+    "author_id": {
+      "title": "Author Id",
+      "type": "string"
+    },
+    "contributors": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Contributors",
+      "type": "array"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "data_snapshot_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Data Snapshot Ids",
+      "type": "array"
+    },
+    "decision_relevance": {
+      "$ref": "#/$defs/DecisionRelevance"
+    },
+    "forbidden_analyses": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Forbidden Analyses",
+      "type": "array"
+    },
+    "guards": {
+      "items": {
+        "$ref": "#/$defs/GuardSpec"
+      },
+      "title": "Guards",
+      "type": "array"
+    },
+    "hypothesis": {
+      "title": "Hypothesis",
+      "type": "string"
+    },
+    "incumbent_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Incumbent Ids",
+      "type": "array"
+    },
+    "kill_criteria": {
+      "description": "pre-declared; must include at least one",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Kill Criteria",
+      "type": "array"
+    },
+    "lineage_id": {
+      "title": "Lineage Id",
+      "type": "string"
+    },
+    "mde_at_available_n": {
+      "description": "the MDE statement this prereg is judged against",
+      "title": "Mde At Available N",
+      "type": "string"
+    },
+    "mechanism": {
+      "title": "Mechanism",
+      "type": "string"
+    },
+    "model_family": {
+      "title": "Model Family",
+      "type": "string"
+    },
+    "naive_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Naive Id"
+    },
+    "prereg_id": {
+      "title": "Prereg Id",
+      "type": "string"
+    },
+    "prereg_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Prereg Sha256",
+      "type": "string"
+    },
+    "primary_score": {
+      "$ref": "#/$defs/ScoreSpec"
+    },
+    "schema_name": {
+      "default": "Prereg",
+      "title": "Schema Name",
+      "type": "string"
+    },
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "search_space": {
+      "$ref": "#/$defs/SearchSpaceSpec"
+    },
+    "secondary_scores": {
+      "items": {
+        "$ref": "#/$defs/ScoreSpec"
+      },
+      "title": "Secondary Scores",
+      "type": "array"
+    },
+    "splitter_config_id": {
+      "title": "Splitter Config Id",
+      "type": "string"
+    },
+    "task_ids": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Task Ids",
+      "type": "array"
+    }
+  },
+  "required": [
+    "prereg_id",
+    "lineage_id",
+    "N_inherited",
+    "hypothesis",
+    "mechanism",
+    "task_ids",
+    "model_family",
+    "primary_score",
+    "search_space",
+    "splitter_config_id",
+    "data_snapshot_ids",
+    "mde_at_available_n",
+    "decision_relevance",
+    "amc_entry_ceiling",
+    "kill_criteria",
+    "author_id",
+    "created_at",
+    "prereg_sha256"
+  ],
+  "title": "Prereg",
+  "type": "object"
+}

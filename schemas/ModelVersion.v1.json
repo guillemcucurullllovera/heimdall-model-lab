@@ -1,0 +1,185 @@
+{
+  "$defs": {
+    "InfluenceTier": {
+      "enum": [
+        "T0",
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "title": "InfluenceTier",
+      "type": "string"
+    },
+    "LifecycleState": {
+      "enum": [
+        "RESEARCH",
+        "REPRODUCED",
+        "WALK_FORWARD",
+        "SHADOW",
+        "PROSPECTIVE_CHALLENGER",
+        "PROMOTION_ELIGIBLE",
+        "PROMOTED",
+        "REJECTED",
+        "SUPERSEDED",
+        "DEGRADED",
+        "QUARANTINED"
+      ],
+      "title": "LifecycleState",
+      "type": "string"
+    },
+    "ParameterArtifact": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "title": "ParameterArtifact",
+      "type": "object"
+    },
+    "RefitLane": {
+      "enum": [
+        "FAST",
+        "SLOW"
+      ],
+      "title": "RefitLane",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "code_tree_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Code Tree Hash",
+      "type": "string"
+    },
+    "data_snapshot_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Data Snapshot Ids",
+      "type": "array"
+    },
+    "family": {
+      "title": "Family",
+      "type": "string"
+    },
+    "influence_tier": {
+      "$ref": "#/$defs/InfluenceTier"
+    },
+    "lifecycle_state": {
+      "$ref": "#/$defs/LifecycleState"
+    },
+    "limit_table_hash": {
+      "anyOf": [
+        {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Limit Table Hash"
+    },
+    "model_card_hash": {
+      "anyOf": [
+        {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Model Card Hash"
+    },
+    "model_id": {
+      "title": "Model Id",
+      "type": "string"
+    },
+    "model_version_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Model Version Hash",
+      "type": "string"
+    },
+    "parameter_artifacts": {
+      "items": {
+        "$ref": "#/$defs/ParameterArtifact"
+      },
+      "title": "Parameter Artifacts",
+      "type": "array"
+    },
+    "predecessor_hash": {
+      "anyOf": [
+        {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Predecessor Hash"
+    },
+    "refit_lane": {
+      "$ref": "#/$defs/RefitLane"
+    },
+    "schema_name": {
+      "default": "ModelVersion",
+      "title": "Schema Name",
+      "type": "string"
+    },
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "spec_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Spec Hash",
+      "type": "string"
+    },
+    "task_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Task Ids",
+      "type": "array"
+    },
+    "tier_ceiling_signed": {
+      "description": "True only if a signed TransitionRequest authorised this tier",
+      "title": "Tier Ceiling Signed",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "model_id",
+    "model_version_hash",
+    "family",
+    "spec_hash",
+    "code_tree_hash",
+    "parameter_artifacts",
+    "data_snapshot_ids",
+    "task_ids",
+    "lifecycle_state",
+    "influence_tier",
+    "tier_ceiling_signed",
+    "refit_lane"
+  ],
+  "title": "ModelVersion",
+  "type": "object"
+}

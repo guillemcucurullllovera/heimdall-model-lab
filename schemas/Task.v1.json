@@ -1,0 +1,514 @@
+{
+  "$defs": {
+    "DataRequirement": {
+      "additionalProperties": false,
+      "properties": {
+        "adjustment_dataset_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "P0-4: an optional companion dataset (e.g. a corporate-actions-metadata snapshot) that clears this requirement's `adjustments` need WITHOUT the primary dataset_id itself being an adjusted series -- e.g. a ticker with zero splits in-window is genuinely safe to use raw, evidenced by a corporate-actions snapshot confirming zero events, not by the price series being transformed. Resolved against the same registry as dataset_id; if set, it must ALSO resolve to a real DatasetSnapshot whose CONTENT -- not merely its existence -- confirms zero in-window events for `instrument` (P1 remediation, MODEL1_REMEDIATION_REREVIEW.md sec I: existence alone was found insufficient).",
+          "title": "Adjustment Dataset Id"
+        },
+        "adjustments": {
+          "description": "adjustment kinds this requirement NEEDS, e.g. 'corporate_actions_snapshot'",
+          "items": {
+            "type": "string"
+          },
+          "title": "Adjustments",
+          "type": "array"
+        },
+        "blockers": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Blockers",
+          "type": "array"
+        },
+        "dataset_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "None means UNRESOLVED",
+          "title": "Dataset Id"
+        },
+        "dataset_role": {
+          "title": "Dataset Role",
+          "type": "string"
+        },
+        "frequency": {
+          "title": "Frequency",
+          "type": "string"
+        },
+        "instrument": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "P1 remediation: the series/ticker this requirement is about, e.g. 'USO'. Required whenever adjustment_dataset_id is set -- a companion's zero-event claim can only be mechanically scoped to the right instrument if one is named.",
+          "title": "Instrument"
+        },
+        "min_depth_years": {
+          "title": "Min Depth Years",
+          "type": "number"
+        },
+        "pit_required": {
+          "title": "Pit Required",
+          "type": "boolean"
+        },
+        "preferred_depth_years": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Preferred Depth Years"
+        },
+        "research_state": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ResearchState"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "the research_state of the dataset satisfying this requirement, if any. MUST be None when dataset_id is None (P0-1 requirement 2) -- a requirement can never claim authority without naming the dataset that backs it. When dataset_id IS set, this value is cross-checked against a real DatasetSnapshot by Task's validator, not trusted here in isolation."
+        },
+        "status": {
+          "$ref": "#/$defs/DataRequirementStatus"
+        }
+      },
+      "required": [
+        "dataset_role",
+        "min_depth_years",
+        "frequency",
+        "pit_required",
+        "status"
+      ],
+      "title": "DataRequirement",
+      "type": "object"
+    },
+    "DataRequirementStatus": {
+      "enum": [
+        "READY",
+        "PARTIAL",
+        "BLOCKED"
+      ],
+      "title": "DataRequirementStatus",
+      "type": "string"
+    },
+    "GuardSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "margin": {
+          "title": "Margin",
+          "type": "number"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "margin"
+      ],
+      "title": "GuardSpec",
+      "type": "object"
+    },
+    "InfluenceTier": {
+      "enum": [
+        "T0",
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "title": "InfluenceTier",
+      "type": "string"
+    },
+    "MdeSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "assumptions": {
+          "title": "Assumptions",
+          "type": "string"
+        },
+        "n_available": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "N Available"
+        },
+        "n_required_80pct": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "N Required 80Pct"
+        },
+        "table_id": {
+          "title": "Table Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "table_id",
+        "assumptions"
+      ],
+      "title": "MdeSpec",
+      "type": "object"
+    },
+    "PromotionClass": {
+      "description": "MODEL-1's tri-state readiness classification (operator's item G).",
+      "enum": [
+        "TECHNICALLY_READY",
+        "RESEARCH_ONLY",
+        "PROMOTION_READY",
+        "BLOCKED"
+      ],
+      "title": "PromotionClass",
+      "type": "string"
+    },
+    "ResearchState": {
+      "description": "Derived, mechanically, from a source's LicenceStatus. Never\nhand-assigned.",
+      "enum": [
+        "promotion_eligible",
+        "research_only_unlicensed",
+        "quarantined"
+      ],
+      "title": "ResearchState",
+      "type": "string"
+    },
+    "ScoreSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "bounds": {
+          "anyOf": [
+            {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              ],
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bounds"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "orientation": {
+          "description": "'lower_is_better' or 'higher_is_better'",
+          "title": "Orientation",
+          "type": "string"
+        },
+        "proper": {
+          "title": "Proper",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "name",
+        "orientation",
+        "proper"
+      ],
+      "title": "ScoreSpec",
+      "type": "object"
+    },
+    "SplitterScheme": {
+      "enum": [
+        "expanding",
+        "CPCV"
+      ],
+      "title": "SplitterScheme",
+      "type": "string"
+    },
+    "SplitterSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "config_id": {
+          "title": "Config Id",
+          "type": "string"
+        },
+        "embargo_rule": {
+          "title": "Embargo Rule",
+          "type": "string"
+        },
+        "purge_rule": {
+          "title": "Purge Rule",
+          "type": "string"
+        },
+        "scheme": {
+          "$ref": "#/$defs/SplitterScheme"
+        }
+      },
+      "required": [
+        "config_id",
+        "scheme",
+        "embargo_rule",
+        "purge_rule"
+      ],
+      "title": "SplitterSpec",
+      "type": "object"
+    },
+    "TaskStatus": {
+      "enum": [
+        "DATA_READY",
+        "PARTIAL",
+        "BLOCKED"
+      ],
+      "title": "TaskStatus",
+      "type": "string"
+    },
+    "TaskTarget": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregation": {
+          "title": "Aggregation",
+          "type": "string"
+        },
+        "horizon_days": {
+          "items": {
+            "type": "integer"
+          },
+          "title": "Horizon Days",
+          "type": "array"
+        },
+        "knowledge_time_rule": {
+          "title": "Knowledge Time Rule",
+          "type": "string"
+        },
+        "label_end_time_rule": {
+          "title": "Label End Time Rule",
+          "type": "string"
+        },
+        "units": {
+          "title": "Units",
+          "type": "string"
+        },
+        "variable": {
+          "title": "Variable",
+          "type": "string"
+        }
+      },
+      "required": [
+        "variable",
+        "horizon_days",
+        "aggregation",
+        "label_end_time_rule",
+        "knowledge_time_rule",
+        "units"
+      ],
+      "title": "TaskTarget",
+      "type": "object"
+    },
+    "TaskUniverse": {
+      "additionalProperties": false,
+      "properties": {
+        "instruments": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Instruments",
+          "type": "array"
+        },
+        "universe_snapshot_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Universe Snapshot Id"
+        }
+      },
+      "required": [
+        "instruments"
+      ],
+      "title": "TaskUniverse",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "amc_seams_allowed": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Amc Seams Allowed",
+      "type": "array"
+    },
+    "data_requirements": {
+      "items": {
+        "$ref": "#/$defs/DataRequirement"
+      },
+      "title": "Data Requirements",
+      "type": "array"
+    },
+    "frozen_at": {
+      "format": "date-time",
+      "title": "Frozen At",
+      "type": "string"
+    },
+    "guards": {
+      "items": {
+        "$ref": "#/$defs/GuardSpec"
+      },
+      "title": "Guards",
+      "type": "array"
+    },
+    "incumbents": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Incumbents",
+      "type": "array"
+    },
+    "influence_ceiling": {
+      "$ref": "#/$defs/InfluenceTier"
+    },
+    "mde": {
+      "$ref": "#/$defs/MdeSpec"
+    },
+    "naive": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Naive"
+    },
+    "primary_score": {
+      "$ref": "#/$defs/ScoreSpec"
+    },
+    "promotion_class": {
+      "$ref": "#/$defs/PromotionClass"
+    },
+    "schema_name": {
+      "default": "Task",
+      "title": "Schema Name",
+      "type": "string"
+    },
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "secondary_scores": {
+      "items": {
+        "$ref": "#/$defs/ScoreSpec"
+      },
+      "title": "Secondary Scores",
+      "type": "array"
+    },
+    "spec_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Spec Sha256",
+      "type": "string"
+    },
+    "splitter": {
+      "$ref": "#/$defs/SplitterSpec"
+    },
+    "status": {
+      "$ref": "#/$defs/TaskStatus"
+    },
+    "target": {
+      "$ref": "#/$defs/TaskTarget"
+    },
+    "task_id": {
+      "title": "Task Id",
+      "type": "string"
+    },
+    "universe": {
+      "$ref": "#/$defs/TaskUniverse"
+    },
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "task_id",
+    "version",
+    "frozen_at",
+    "spec_sha256",
+    "target",
+    "universe",
+    "data_requirements",
+    "splitter",
+    "primary_score",
+    "mde",
+    "status",
+    "promotion_class",
+    "influence_ceiling"
+  ],
+  "title": "Task",
+  "type": "object"
+}

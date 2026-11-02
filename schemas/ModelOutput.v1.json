@@ -1,0 +1,109 @@
+{
+  "$defs": {
+    "QuantilePoint": {
+      "additionalProperties": false,
+      "properties": {
+        "quantile": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Quantile",
+          "type": "number"
+        },
+        "value": {
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "quantile",
+        "value"
+      ],
+      "title": "QuantilePoint",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "as_of_utc": {
+      "format": "date-time",
+      "title": "As Of Utc",
+      "type": "string"
+    },
+    "decision_relevant": {
+      "default": false,
+      "description": "True only if this output is bound to a signed prereg/gate ceiling",
+      "title": "Decision Relevant",
+      "type": "boolean"
+    },
+    "horizon_days": {
+      "minimum": 0,
+      "title": "Horizon Days",
+      "type": "integer"
+    },
+    "input_hashes": {
+      "items": {
+        "pattern": "^[0-9a-f]{64}$",
+        "type": "string"
+      },
+      "title": "Input Hashes",
+      "type": "array"
+    },
+    "model_version_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Model Version Hash",
+      "type": "string"
+    },
+    "point_estimate": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Point Estimate"
+    },
+    "produced_at_utc": {
+      "format": "date-time",
+      "title": "Produced At Utc",
+      "type": "string"
+    },
+    "quantiles": {
+      "items": {
+        "$ref": "#/$defs/QuantilePoint"
+      },
+      "title": "Quantiles",
+      "type": "array"
+    },
+    "schema_name": {
+      "default": "ModelOutput",
+      "title": "Schema Name",
+      "type": "string"
+    },
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "target_variable": {
+      "title": "Target Variable",
+      "type": "string"
+    },
+    "task_id": {
+      "title": "Task Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "model_version_hash",
+    "task_id",
+    "as_of_utc",
+    "produced_at_utc",
+    "target_variable",
+    "horizon_days"
+  ],
+  "title": "ModelOutput",
+  "type": "object"
+}

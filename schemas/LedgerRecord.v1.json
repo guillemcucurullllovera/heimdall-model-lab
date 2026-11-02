@@ -1,0 +1,150 @@
+{
+  "$defs": {
+    "LedgerRecordType": {
+      "enum": [
+        "hypothesis",
+        "prereg",
+        "search_space",
+        "trial_batch",
+        "dataset_snapshot",
+        "feature_set",
+        "run",
+        "evidence_report",
+        "model_version",
+        "shadow_record",
+        "decision_diff",
+        "transition_request",
+        "validation_attestation",
+        "approval",
+        "transition",
+        "limit_table",
+        "incident",
+        "negative_result",
+        "decision",
+        "source_licence_status",
+        "option_archive_manifest",
+        "acceptance_test_result"
+      ],
+      "title": "LedgerRecordType",
+      "type": "string"
+    },
+    "Signature": {
+      "additionalProperties": false,
+      "description": "A detached signature over a record's body_hash.\n\nProduced out-of-band by `ssh-keygen -Y sign` (or, in tests, throwaway\nkeys) and verified with `ssh-keygen -Y verify` / `find-principals`\nagainst a role-restricted `allowed_signers` file. MODEL-1 never\ngenerates operator or validator keys itself (D2).",
+      "properties": {
+        "namespace": {
+          "description": "ssh-keygen -Y sign/verify namespace",
+          "title": "Namespace",
+          "type": "string"
+        },
+        "signature_b64": {
+          "title": "Signature B64",
+          "type": "string"
+        },
+        "signature_format": {
+          "default": "ssh-ed25519-Y-sign",
+          "title": "Signature Format",
+          "type": "string"
+        },
+        "signed_at_utc": {
+          "format": "date-time",
+          "title": "Signed At Utc",
+          "type": "string"
+        },
+        "signer_id": {
+          "description": "principal identity as it appears in the allowed_signers file",
+          "title": "Signer Id",
+          "type": "string"
+        },
+        "signer_role": {
+          "description": "e.g. 'author', 'validator', 'operator', 'automaton'",
+          "title": "Signer Role",
+          "type": "string"
+        }
+      },
+      "required": [
+        "signer_role",
+        "signer_id",
+        "namespace",
+        "signature_b64",
+        "signed_at_utc"
+      ],
+      "title": "Signature",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "author_id": {
+      "title": "Author Id",
+      "type": "string"
+    },
+    "body": {
+      "additionalProperties": true,
+      "description": "the record_type-specific payload, e.g. a Prereg/1 dump",
+      "title": "Body",
+      "type": "object"
+    },
+    "body_hash": {
+      "description": "canonical_sha256(body)",
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Body Hash",
+      "type": "string"
+    },
+    "prev_hash": {
+      "anyOf": [
+        {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "None only for seq==0 (genesis record)",
+      "title": "Prev Hash"
+    },
+    "record_type": {
+      "$ref": "#/$defs/LedgerRecordType"
+    },
+    "schema_name": {
+      "default": "LedgerRecord",
+      "title": "Schema Name",
+      "type": "string"
+    },
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "seq": {
+      "minimum": 0,
+      "title": "Seq",
+      "type": "integer"
+    },
+    "signatures": {
+      "items": {
+        "$ref": "#/$defs/Signature"
+      },
+      "title": "Signatures",
+      "type": "array"
+    },
+    "ts_utc": {
+      "description": "audit-only; not used for any PIT/knowledge-time decision",
+      "format": "date-time",
+      "title": "Ts Utc",
+      "type": "string"
+    }
+  },
+  "required": [
+    "seq",
+    "record_type",
+    "body",
+    "body_hash",
+    "author_id",
+    "ts_utc"
+  ],
+  "title": "LedgerRecord",
+  "type": "object"
+}

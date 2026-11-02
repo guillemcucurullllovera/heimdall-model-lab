@@ -1,0 +1,154 @@
+{
+  "$defs": {
+    "InfluenceTier": {
+      "enum": [
+        "T0",
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "title": "InfluenceTier",
+      "type": "string"
+    },
+    "LifecycleState": {
+      "enum": [
+        "RESEARCH",
+        "REPRODUCED",
+        "WALK_FORWARD",
+        "SHADOW",
+        "PROSPECTIVE_CHALLENGER",
+        "PROMOTION_ELIGIBLE",
+        "PROMOTED",
+        "REJECTED",
+        "SUPERSEDED",
+        "DEGRADED",
+        "QUARANTINED"
+      ],
+      "title": "LifecycleState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "contributors": {
+      "description": "everyone who authored the model/evidence this request cites",
+      "items": {
+        "type": "string"
+      },
+      "title": "Contributors",
+      "type": "array"
+    },
+    "created_at_utc": {
+      "format": "date-time",
+      "title": "Created At Utc",
+      "type": "string"
+    },
+    "evidence_report_hash": {
+      "anyOf": [
+        {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Evidence Report Hash"
+    },
+    "gate_result_hash": {
+      "anyOf": [
+        {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Gate Result Hash"
+    },
+    "influence_after": {
+      "$ref": "#/$defs/InfluenceTier"
+    },
+    "influence_before": {
+      "$ref": "#/$defs/InfluenceTier"
+    },
+    "lifecycle_after": {
+      "$ref": "#/$defs/LifecycleState"
+    },
+    "lifecycle_before": {
+      "$ref": "#/$defs/LifecycleState"
+    },
+    "model_id": {
+      "title": "Model Id",
+      "type": "string"
+    },
+    "model_version_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Model Version Hash",
+      "type": "string"
+    },
+    "namespace": {
+      "description": "ssh-keygen -Y sign/verify namespace, scoped per purpose",
+      "title": "Namespace",
+      "type": "string"
+    },
+    "prev_ledger_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Prev Ledger Hash",
+      "type": "string"
+    },
+    "reason": {
+      "title": "Reason",
+      "type": "string"
+    },
+    "request_id": {
+      "title": "Request Id",
+      "type": "string"
+    },
+    "request_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Request Sha256",
+      "type": "string"
+    },
+    "requested_by": {
+      "title": "Requested By",
+      "type": "string"
+    },
+    "schema_name": {
+      "default": "TransitionRequest",
+      "title": "Schema Name",
+      "type": "string"
+    },
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "valid_before_utc": {
+      "format": "date-time",
+      "title": "Valid Before Utc",
+      "type": "string"
+    }
+  },
+  "required": [
+    "request_id",
+    "model_id",
+    "model_version_hash",
+    "lifecycle_before",
+    "lifecycle_after",
+    "influence_before",
+    "influence_after",
+    "reason",
+    "requested_by",
+    "namespace",
+    "prev_ledger_hash",
+    "created_at_utc",
+    "valid_before_utc",
+    "request_sha256"
+  ],
+  "title": "TransitionRequest",
+  "type": "object"
+}

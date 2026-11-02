@@ -1,0 +1,1343 @@
+{
+  "$defs": {
+    "BaselineComparisonResult": {
+      "additionalProperties": false,
+      "description": "BASELINE AMC DECISION vs MODEL-ASSISTED AMC DECISION. For every\nimplemented model this pass, this is populated with explicit \"no\nmapping exists\" descriptions and `positive_incremental_value_\ndemonstrated=False` -- never a real number, since there is no\nbaseline AMC decision to compare against without a decision mapping\n(`DecisionMappingResult.has_mapping=False`). `None` only for\nunimplemented (literature-candidate) entries, where there is nothing\nto even describe.",
+      "properties": {
+        "baseline_description": {
+          "title": "Baseline Description",
+          "type": "string"
+        },
+        "incremental_capital_usage": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Incremental Capital Usage"
+        },
+        "incremental_costs": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Incremental Costs"
+        },
+        "incremental_drawdown": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Incremental Drawdown"
+        },
+        "incremental_pnl_payoff": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Incremental Pnl Payoff"
+        },
+        "incremental_risk": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Incremental Risk"
+        },
+        "incremental_stability": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Incremental Stability"
+        },
+        "incremental_tail_behaviour": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Incremental Tail Behaviour"
+        },
+        "model_assisted_description": {
+          "title": "Model Assisted Description",
+          "type": "string"
+        },
+        "positive_incremental_value_demonstrated": {
+          "description": "MUST be False unless the comparison above actually demonstrates it -- never True by default",
+          "title": "Positive Incremental Value Demonstrated",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "baseline_description",
+        "model_assisted_description",
+        "positive_incremental_value_demonstrated"
+      ],
+      "title": "BaselineComparisonResult",
+      "type": "object"
+    },
+    "Causality": {
+      "enum": [
+        "FILTERED",
+        "SMOOTHED",
+        "NOT_APPLICABLE"
+      ],
+      "title": "Causality",
+      "type": "string"
+    },
+    "ChartSeries": {
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "points": {
+          "items": {
+            "$ref": "#/$defs/ChartSeriesPoint"
+          },
+          "title": "Points",
+          "type": "array"
+        },
+        "role": {
+          "description": "'challenger' | 'incumbent' | 'naive' | 'comparator'",
+          "title": "Role",
+          "type": "string"
+        }
+      },
+      "required": [
+        "label",
+        "role",
+        "points"
+      ],
+      "title": "ChartSeries",
+      "type": "object"
+    },
+    "ChartSeriesPoint": {
+      "additionalProperties": false,
+      "description": "A single plotted value. `unavailable=True` renders as UNAVAILABLE in\nthe Command Center rather than as a zero \u2014 `value` must be None\nwhenever `unavailable` is True, and non-None otherwise.",
+      "properties": {
+        "band_lower": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Band Lower"
+        },
+        "band_upper": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Band Upper"
+        },
+        "unavailable": {
+          "default": false,
+          "title": "Unavailable",
+          "type": "boolean"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "stringified to avoid float-canonicalization issues",
+          "title": "Value"
+        },
+        "x_label": {
+          "title": "X Label",
+          "type": "string"
+        }
+      },
+      "required": [
+        "x_label"
+      ],
+      "title": "ChartSeriesPoint",
+      "type": "object"
+    },
+    "ChartSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "causality": {
+          "$ref": "#/$defs/Causality"
+        },
+        "chart_id": {
+          "title": "Chart Id",
+          "type": "string"
+        },
+        "chart_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Chart Sha256",
+          "type": "string"
+        },
+        "data_authority": {
+          "$ref": "#/$defs/DataAuthority"
+        },
+        "data_cutoff": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Data Cutoff"
+        },
+        "decision_question": {
+          "title": "Decision Question",
+          "type": "string"
+        },
+        "incumbent_id": {
+          "title": "Incumbent Id",
+          "type": "string"
+        },
+        "mde": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Mde"
+        },
+        "n": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "N"
+        },
+        "n_independent": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "N Independent"
+        },
+        "schema_name": {
+          "default": "ChartSpec",
+          "title": "Schema Name",
+          "type": "string"
+        },
+        "schema_version": {
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "series": {
+          "items": {
+            "$ref": "#/$defs/ChartSeries"
+          },
+          "title": "Series",
+          "type": "array"
+        }
+      },
+      "required": [
+        "chart_id",
+        "decision_question",
+        "incumbent_id",
+        "series",
+        "causality",
+        "data_authority",
+        "chart_sha256"
+      ],
+      "title": "ChartSpec",
+      "type": "object"
+    },
+    "DataAuthority": {
+      "enum": [
+        "PROVISIONAL",
+        "UNAVAILABLE"
+      ],
+      "title": "DataAuthority",
+      "type": "string"
+    },
+    "DecisionMappingResult": {
+      "additionalProperties": false,
+      "description": "Whether, and how, this model's output could enter a real AMC\ndecision. `has_mapping=False` for all 26 registry entries this pass\n-- see `MODEL_LAB_AMC_DECISION_MAPPING_INVESTIGATION.md` for why.",
+      "properties": {
+        "amc_entry_point_citation": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "real AMC file:field this output would enter through, or None",
+          "title": "Amc Entry Point Citation"
+        },
+        "applicable_portfolio_risk_constraints": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Applicable Portfolio Risk Constraints",
+          "type": "array"
+        },
+        "baseline_decision_description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Baseline Decision Description"
+        },
+        "decision_it_would_change": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Decision It Would Change"
+        },
+        "execution_assumptions": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Execution Assumptions"
+        },
+        "has_mapping": {
+          "title": "Has Mapping",
+          "type": "boolean"
+        },
+        "missing_data": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Missing Data",
+          "type": "array"
+        },
+        "model_assisted_decision_description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Model Assisted Decision Description"
+        },
+        "model_output_description": {
+          "title": "Model Output Description",
+          "type": "string"
+        },
+        "reason_not_evaluable": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reason Not Evaluable"
+        },
+        "required_data": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Data",
+          "type": "array"
+        },
+        "required_market_option_data": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Market Option Data",
+          "type": "array"
+        }
+      },
+      "required": [
+        "has_mapping",
+        "model_output_description"
+      ],
+      "title": "DecisionMappingResult",
+      "type": "object"
+    },
+    "EconomicEvaluationResult": {
+      "additionalProperties": false,
+      "description": "Populated ONLY when a genuine economic evaluation was actually run\n-- every field is `None`/empty for every model this pass, since\n`DecisionMappingResult.has_mapping` is False everywhere. A future\nmodel with a real decision mapping would have this filled from real\ncomputation, never from an assumption.",
+      "properties": {
+        "annualized_return": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Annualized Return"
+        },
+        "capital_usage": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Capital Usage"
+        },
+        "cumulative_pnl": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cumulative Pnl"
+        },
+        "exposure_concentration": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Exposure Concentration"
+        },
+        "hit_rate": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Hit Rate"
+        },
+        "max_drawdown": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max Drawdown"
+        },
+        "n_independent_events": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "N Independent Events"
+        },
+        "n_observations": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "N Observations"
+        },
+        "options_payoff_note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "for options/structured trades: payoff/risk characteristics, never a forced equity-style metric",
+          "title": "Options Payoff Note"
+        },
+        "regime_breakdown": {
+          "additionalProperties": true,
+          "title": "Regime Breakdown",
+          "type": "object"
+        },
+        "sharpe_ratio": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sharpe Ratio"
+        },
+        "tail_loss_es": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tail Loss Es"
+        },
+        "transaction_costs": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Transaction Costs"
+        },
+        "turnover": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Turnover"
+        },
+        "volatility": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Volatility"
+        }
+      },
+      "title": "EconomicEvaluationResult",
+      "type": "object"
+    },
+    "EstablishmentState": {
+      "description": "Used wherever a value may genuinely not exist yet. Never silently\nomitted -- a field using this enum is always PRESENT in the export,\njust carrying this instead of a fabricated real value.",
+      "enum": [
+        "ESTABLISHED",
+        "PENDING",
+        "NOT_ESTABLISHED"
+      ],
+      "title": "EstablishmentState",
+      "type": "string"
+    },
+    "EvaluationStatus": {
+      "enum": [
+        "NOT_EVALUATED",
+        "EVALUATION_PENDING",
+        "NOT_EVALUABLE",
+        "EVALUATED_FAILED",
+        "EVALUATED_INCONCLUSIVE",
+        "ELIGIBLE_PENDING_HUMAN_AUTHORIZATION",
+        "AUTHORIZED"
+      ],
+      "title": "EvaluationStatus",
+      "type": "string"
+    },
+    "GateEvidenceState": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "NOT_ESTABLISHED",
+        "NOT_APPLICABLE"
+      ],
+      "title": "GateEvidenceState",
+      "type": "string"
+    },
+    "ModelAMCPromotionEvaluation": {
+      "additionalProperties": false,
+      "properties": {
+        "baseline_comparison": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/BaselineComparisonResult"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "decision_mapping": {
+          "$ref": "#/$defs/DecisionMappingResult"
+        },
+        "economic_evaluation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EconomicEvaluationResult"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "gates": {
+          "items": {
+            "$ref": "#/$defs/PromotionGateResult"
+          },
+          "title": "Gates",
+          "type": "array"
+        },
+        "human_authorization_state": {
+          "default": "NOT_SOUGHT",
+          "description": "'NOT_SOUGHT' for every model this pass -- never anything implying a human was asked",
+          "title": "Human Authorization State",
+          "type": "string"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "model_id": {
+          "title": "Model Id",
+          "type": "string"
+        },
+        "oos_provenance": {
+          "$ref": "#/$defs/OOSProvenance"
+        },
+        "overall_status": {
+          "$ref": "#/$defs/EvaluationStatus"
+        },
+        "prospective_sufficiency": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ProspectiveSufficiency"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "schema_name": {
+          "default": "ModelAMCPromotionEvaluation",
+          "title": "Schema Name",
+          "type": "string"
+        },
+        "schema_version": {
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "status_reasoning": {
+          "title": "Status Reasoning",
+          "type": "string"
+        }
+      },
+      "required": [
+        "model_id",
+        "overall_status",
+        "status_reasoning",
+        "decision_mapping",
+        "oos_provenance",
+        "gates"
+      ],
+      "title": "ModelAMCPromotionEvaluation",
+      "type": "object"
+    },
+    "ModelRegistryEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "actual_outputs_sample": {
+          "additionalProperties": true,
+          "description": "a small, REAL sample of what this model actually produces -- never a description-only placeholder",
+          "title": "Actual Outputs Sample",
+          "type": "object"
+        },
+        "amc_promotion_authorized": {
+          "description": "MUST always be False; enforced by a test",
+          "title": "Amc Promotion Authorized",
+          "type": "boolean"
+        },
+        "benchmark_comparison_summary": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Benchmark Comparison Summary"
+        },
+        "bucket": {
+          "$ref": "#/$defs/RegistryBucket"
+        },
+        "chart_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Chart Ids",
+          "type": "array"
+        },
+        "code_fingerprint": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Code Fingerprint"
+        },
+        "constituent_of": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "model_id of a composite this is a constituent of",
+          "title": "Constituent Of"
+        },
+        "constituents": {
+          "description": "model_ids of this composite's own constituents",
+          "items": {
+            "type": "string"
+          },
+          "title": "Constituents",
+          "type": "array"
+        },
+        "diagnostics": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Diagnostics",
+          "type": "array"
+        },
+        "display_name": {
+          "title": "Display Name",
+          "type": "string"
+        },
+        "family": {
+          "title": "Family",
+          "type": "string"
+        },
+        "governance_provenance": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Governance Provenance",
+          "type": "array"
+        },
+        "historical_evidence_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Historical Evidence Refs",
+          "type": "array"
+        },
+        "historical_evidence_summary": {
+          "title": "Historical Evidence Summary",
+          "type": "string"
+        },
+        "horizons_days": {
+          "items": {
+            "type": "integer"
+          },
+          "title": "Horizons Days",
+          "type": "array"
+        },
+        "implementation_files": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Implementation Files",
+          "type": "array"
+        },
+        "incremental_value_summary": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Incremental Value Summary"
+        },
+        "independent_review_state": {
+          "$ref": "#/$defs/EstablishmentState"
+        },
+        "inputs_data": {
+          "title": "Inputs Data",
+          "type": "string"
+        },
+        "lifecycle_state": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "a real LifecycleState value, if any ModelVersion exists",
+          "title": "Lifecycle State"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "methodology": {
+          "title": "Methodology",
+          "type": "string"
+        },
+        "model_id": {
+          "title": "Model Id",
+          "type": "string"
+        },
+        "oos_evidence_summary": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Oos Evidence Summary"
+        },
+        "prospective_evidence_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Prospective Evidence Refs",
+          "type": "array"
+        },
+        "prospective_evidence_summary": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Prospective Evidence Summary"
+        },
+        "research_state": {
+          "$ref": "#/$defs/ResearchState"
+        },
+        "result_artifact_references": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Result Artifact References",
+          "type": "array"
+        },
+        "source_references": {
+          "description": "real paper/corpus filenames or citations",
+          "items": {
+            "type": "string"
+          },
+          "title": "Source References",
+          "type": "array"
+        },
+        "target_variable": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Target Variable"
+        },
+        "task_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "the frozen Task this model belongs to, if any",
+          "title": "Task Id"
+        },
+        "universe": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Universe",
+          "type": "array"
+        }
+      },
+      "required": [
+        "model_id",
+        "display_name",
+        "family",
+        "research_state",
+        "bucket",
+        "task_id",
+        "methodology",
+        "inputs_data",
+        "independent_review_state",
+        "amc_promotion_authorized",
+        "historical_evidence_summary"
+      ],
+      "title": "ModelRegistryEntry",
+      "type": "object"
+    },
+    "OOSProvenance": {
+      "additionalProperties": false,
+      "description": "Statistical (Model-Lab-internal) out-of-sample provenance --\nDISTINCT from economic OOS (which would require a real decision\nmapping and therefore does not exist for anything this pass).",
+      "properties": {
+        "has_statistical_oos_evidence": {
+          "title": "Has Statistical Oos Evidence",
+          "type": "boolean"
+        },
+        "leakage_check_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Leakage Check Refs",
+          "type": "array"
+        },
+        "no_lookahead_verified": {
+          "title": "No Lookahead Verified",
+          "type": "boolean"
+        },
+        "note": {
+          "title": "Note",
+          "type": "string"
+        },
+        "test_period_description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Test Period Description"
+        },
+        "training_period_description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Training Period Description"
+        }
+      },
+      "required": [
+        "has_statistical_oos_evidence",
+        "no_lookahead_verified",
+        "note"
+      ],
+      "title": "OOSProvenance",
+      "type": "object"
+    },
+    "PromotionGateResult": {
+      "additionalProperties": false,
+      "properties": {
+        "code_reference": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Code Reference"
+        },
+        "evidence": {
+          "title": "Evidence",
+          "type": "string"
+        },
+        "gate_id": {
+          "title": "Gate Id",
+          "type": "string"
+        },
+        "implemented_in_code": {
+          "description": "True only if real, executable code exists for this gate (cited)",
+          "title": "Implemented In Code",
+          "type": "boolean"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "state": {
+          "$ref": "#/$defs/GateEvidenceState"
+        },
+        "threshold_status": {
+          "description": "'NO_THRESHOLD_NEEDED' | 'REAL_PRECEDENT_CITED' | 'DESIGN_DECISION_REQUIRED' -- never 'INVENTED'",
+          "title": "Threshold Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "gate_id",
+        "name",
+        "implemented_in_code",
+        "state",
+        "evidence",
+        "threshold_status"
+      ],
+      "title": "PromotionGateResult",
+      "type": "object"
+    },
+    "ProspectiveSufficiency": {
+      "additionalProperties": false,
+      "properties": {
+        "n_pending_observations": {
+          "title": "N Pending Observations",
+          "type": "integer"
+        },
+        "n_resolved_non_replay_observations": {
+          "title": "N Resolved Non Replay Observations",
+          "type": "integer"
+        },
+        "real_world_precedent_cited": {
+          "description": "a REAL, already-existing governance precedent cited for context -- never a Model-Lab-invented threshold",
+          "title": "Real World Precedent Cited",
+          "type": "string"
+        },
+        "reasoning": {
+          "title": "Reasoning",
+          "type": "string"
+        },
+        "sufficient_for_any_statistical_claim": {
+          "title": "Sufficient For Any Statistical Claim",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "n_resolved_non_replay_observations",
+        "n_pending_observations",
+        "real_world_precedent_cited",
+        "sufficient_for_any_statistical_claim",
+        "reasoning"
+      ],
+      "title": "ProspectiveSufficiency",
+      "type": "object"
+    },
+    "RegistryBucket": {
+      "description": "UI-grouping hint, cross-cutting the task hierarchy. A model can be\nboth grouped under its task (via `task_id`) AND listed in one of these\ncross-cutting buckets -- the two views are complementary, not\nexclusive (e.g. a `REJECTED_RETIRED` regime model still belongs under\nT-STATE in the task tree).",
+      "enum": [
+        "TASK_MODEL",
+        "COMPOSITE_CHALLENGER",
+        "RESEARCH_CANDIDATE",
+        "SHADOW",
+        "VALIDATION_PENDING",
+        "REJECTED_RETIRED"
+      ],
+      "title": "RegistryBucket",
+      "type": "string"
+    },
+    "ResearchState": {
+      "enum": [
+        "IMPLEMENTED_REPRODUCIBLE",
+        "IMPLEMENTED_VALIDATION_PENDING",
+        "SHADOW_RESEARCH",
+        "LITERATURE_RESEARCH_CANDIDATE",
+        "REJECTED_OR_RETIRED"
+      ],
+      "title": "ResearchState",
+      "type": "string"
+    },
+    "ResearchSummaryCounts": {
+      "additionalProperties": false,
+      "properties": {
+        "n_implemented_reproducible": {
+          "title": "N Implemented Reproducible",
+          "type": "integer"
+        },
+        "n_implemented_validation_pending": {
+          "title": "N Implemented Validation Pending",
+          "type": "integer"
+        },
+        "n_literature_research_candidates": {
+          "title": "N Literature Research Candidates",
+          "type": "integer"
+        },
+        "n_models_amc_eligible": {
+          "description": "MUST always be 0",
+          "title": "N Models Amc Eligible",
+          "type": "integer"
+        },
+        "n_models_amc_evaluated_failed": {
+          "description": "MUST always be 0 this pass -- no real evaluation has ever run",
+          "title": "N Models Amc Evaluated Failed",
+          "type": "integer"
+        },
+        "n_models_amc_not_evaluable": {
+          "description": "models with no real AMC decision mapping (or no implementation)",
+          "title": "N Models Amc Not Evaluable",
+          "type": "integer"
+        },
+        "n_models_with_charts": {
+          "title": "N Models With Charts",
+          "type": "integer"
+        },
+        "n_models_with_historical_evidence": {
+          "title": "N Models With Historical Evidence",
+          "type": "integer"
+        },
+        "n_models_with_prospective_evidence": {
+          "title": "N Models With Prospective Evidence",
+          "type": "integer"
+        },
+        "n_rejected_or_retired": {
+          "title": "N Rejected Or Retired",
+          "type": "integer"
+        },
+        "n_shadow_research": {
+          "title": "N Shadow Research",
+          "type": "integer"
+        },
+        "n_task_families_represented": {
+          "title": "N Task Families Represented",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "n_implemented_reproducible",
+        "n_implemented_validation_pending",
+        "n_shadow_research",
+        "n_literature_research_candidates",
+        "n_rejected_or_retired",
+        "n_task_families_represented",
+        "n_models_with_historical_evidence",
+        "n_models_with_prospective_evidence",
+        "n_models_with_charts",
+        "n_models_amc_eligible",
+        "n_models_amc_not_evaluable",
+        "n_models_amc_evaluated_failed"
+      ],
+      "title": "ResearchSummaryCounts",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "amc_promotion_evaluations": {
+      "additionalProperties": {
+        "$ref": "#/$defs/ModelAMCPromotionEvaluation"
+      },
+      "description": "model_id -> its AMC promotion evaluation (see contracts/amc_promotion_evaluation.py)",
+      "title": "Amc Promotion Evaluations",
+      "type": "object"
+    },
+    "charts": {
+      "items": {
+        "$ref": "#/$defs/ChartSpec"
+      },
+      "title": "Charts",
+      "type": "array"
+    },
+    "entries": {
+      "items": {
+        "$ref": "#/$defs/ModelRegistryEntry"
+      },
+      "title": "Entries",
+      "type": "array"
+    },
+    "export_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Export Sha256",
+      "type": "string"
+    },
+    "generated_at_utc": {
+      "format": "date-time",
+      "title": "Generated At Utc",
+      "type": "string"
+    },
+    "git_branch": {
+      "title": "Git Branch",
+      "type": "string"
+    },
+    "git_commit": {
+      "title": "Git Commit",
+      "type": "string"
+    },
+    "research_summary": {
+      "$ref": "#/$defs/ResearchSummaryCounts"
+    },
+    "schema_name": {
+      "default": "ModelLabRegistryExport",
+      "title": "Schema Name",
+      "type": "string"
+    },
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "status_buckets": {
+      "additionalProperties": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "description": "RegistryBucket value -> list of model_ids",
+      "title": "Status Buckets",
+      "type": "object"
+    },
+    "task_hierarchy": {
+      "additionalProperties": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "description": "task_id -> ordered list of model_ids under it",
+      "title": "Task Hierarchy",
+      "type": "object"
+    }
+  },
+  "required": [
+    "generated_at_utc",
+    "git_commit",
+    "git_branch",
+    "entries",
+    "task_hierarchy",
+    "status_buckets",
+    "amc_promotion_evaluations",
+    "research_summary",
+    "export_sha256"
+  ],
+  "title": "ModelLabRegistryExport",
+  "type": "object"
+}

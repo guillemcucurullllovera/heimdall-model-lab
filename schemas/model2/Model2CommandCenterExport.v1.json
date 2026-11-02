@@ -1,0 +1,1133 @@
+{
+  "$defs": {
+    "CandidateCellRef": {
+      "additionalProperties": false,
+      "properties": {
+        "horizon": {
+          "title": "Horizon",
+          "type": "integer"
+        },
+        "ticker": {
+          "title": "Ticker",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ticker",
+        "horizon"
+      ],
+      "title": "CandidateCellRef",
+      "type": "object"
+    },
+    "CandidateDefinitionSection": {
+      "additionalProperties": false,
+      "properties": {
+        "eligible_cells": {
+          "items": {
+            "$ref": "#/$defs/CandidateCellRef"
+          },
+          "title": "Eligible Cells",
+          "type": "array"
+        },
+        "information_set": {
+          "title": "Information Set",
+          "type": "string"
+        },
+        "output_description": {
+          "title": "Output Description",
+          "type": "string"
+        },
+        "rejected_cells": {
+          "items": {
+            "$ref": "#/$defs/CandidateCellRef"
+          },
+          "title": "Rejected Cells",
+          "type": "array"
+        },
+        "spec_document": {
+          "default": "reports/MODEL2_CANDIDATE_SPEC.md",
+          "title": "Spec Document",
+          "type": "string"
+        },
+        "training_procedure": {
+          "title": "Training Procedure",
+          "type": "string"
+        }
+      },
+      "required": [
+        "eligible_cells",
+        "rejected_cells",
+        "information_set",
+        "training_procedure",
+        "output_description"
+      ],
+      "title": "CandidateDefinitionSection",
+      "type": "object"
+    },
+    "Causality": {
+      "enum": [
+        "FILTERED",
+        "SMOOTHED",
+        "NOT_APPLICABLE"
+      ],
+      "title": "Causality",
+      "type": "string"
+    },
+    "ChartSeries": {
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "points": {
+          "items": {
+            "$ref": "#/$defs/ChartSeriesPoint"
+          },
+          "title": "Points",
+          "type": "array"
+        },
+        "role": {
+          "description": "'challenger' | 'incumbent' | 'naive' | 'comparator'",
+          "title": "Role",
+          "type": "string"
+        }
+      },
+      "required": [
+        "label",
+        "role",
+        "points"
+      ],
+      "title": "ChartSeries",
+      "type": "object"
+    },
+    "ChartSeriesPoint": {
+      "additionalProperties": false,
+      "description": "A single plotted value. `unavailable=True` renders as UNAVAILABLE in\nthe Command Center rather than as a zero \u2014 `value` must be None\nwhenever `unavailable` is True, and non-None otherwise.",
+      "properties": {
+        "band_lower": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Band Lower"
+        },
+        "band_upper": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Band Upper"
+        },
+        "unavailable": {
+          "default": false,
+          "title": "Unavailable",
+          "type": "boolean"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "stringified to avoid float-canonicalization issues",
+          "title": "Value"
+        },
+        "x_label": {
+          "title": "X Label",
+          "type": "string"
+        }
+      },
+      "required": [
+        "x_label"
+      ],
+      "title": "ChartSeriesPoint",
+      "type": "object"
+    },
+    "ChartSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "causality": {
+          "$ref": "#/$defs/Causality"
+        },
+        "chart_id": {
+          "title": "Chart Id",
+          "type": "string"
+        },
+        "chart_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Chart Sha256",
+          "type": "string"
+        },
+        "data_authority": {
+          "$ref": "#/$defs/DataAuthority"
+        },
+        "data_cutoff": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Data Cutoff"
+        },
+        "decision_question": {
+          "title": "Decision Question",
+          "type": "string"
+        },
+        "incumbent_id": {
+          "title": "Incumbent Id",
+          "type": "string"
+        },
+        "mde": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Mde"
+        },
+        "n": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "N"
+        },
+        "n_independent": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "N Independent"
+        },
+        "schema_name": {
+          "default": "ChartSpec",
+          "title": "Schema Name",
+          "type": "string"
+        },
+        "schema_version": {
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "series": {
+          "items": {
+            "$ref": "#/$defs/ChartSeries"
+          },
+          "title": "Series",
+          "type": "array"
+        }
+      },
+      "required": [
+        "chart_id",
+        "decision_question",
+        "incumbent_id",
+        "series",
+        "causality",
+        "data_authority",
+        "chart_sha256"
+      ],
+      "title": "ChartSpec",
+      "type": "object"
+    },
+    "ConfidenceAbstentionSection": {
+      "additionalProperties": false,
+      "properties": {
+        "decision": {
+          "$ref": "#/$defs/DecisionLabel"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "per_ticker_bottom_tertile_loss": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Per Ticker Bottom Tertile Loss",
+          "type": "object"
+        },
+        "per_ticker_top_tertile_loss": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Per Ticker Top Tertile Loss",
+          "type": "object"
+        },
+        "pooled_dm_p_value": {
+          "title": "Pooled Dm P Value",
+          "type": "string"
+        },
+        "pooled_dm_stat": {
+          "title": "Pooled Dm Stat",
+          "type": "string"
+        },
+        "source_file": {
+          "default": "reports/confidence_abstention_probe/_summary.json",
+          "title": "Source File",
+          "type": "string"
+        }
+      },
+      "required": [
+        "per_ticker_top_tertile_loss",
+        "per_ticker_bottom_tertile_loss",
+        "pooled_dm_stat",
+        "pooled_dm_p_value",
+        "decision",
+        "limitations"
+      ],
+      "title": "ConfidenceAbstentionSection",
+      "type": "object"
+    },
+    "DataAuthority": {
+      "enum": [
+        "PROVISIONAL",
+        "UNAVAILABLE"
+      ],
+      "title": "DataAuthority",
+      "type": "string"
+    },
+    "DecisionLabel": {
+      "enum": [
+        "RETAIN",
+        "REJECT",
+        "INCONCLUSIVE",
+        "MIXED",
+        "DESCRIPTIVE_ONLY",
+        "DEFINITIONAL",
+        "CAPABILITY_BUILT",
+        "DEFECT_FOUND_AND_FIXED",
+        "VERIFIED_CLEAN"
+      ],
+      "title": "DecisionLabel",
+      "type": "string"
+    },
+    "DownstreamValueCell": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_christoffersen_p": {
+          "title": "Candidate Christoffersen P",
+          "type": "string"
+        },
+        "candidate_improved": {
+          "title": "Candidate Improved",
+          "type": "boolean"
+        },
+        "incumbent_christoffersen_p": {
+          "title": "Incumbent Christoffersen P",
+          "type": "string"
+        },
+        "is_eligible_ticker": {
+          "title": "Is Eligible Ticker",
+          "type": "boolean"
+        },
+        "tail_level": {
+          "title": "Tail Level",
+          "type": "string"
+        },
+        "ticker": {
+          "title": "Ticker",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ticker",
+        "tail_level",
+        "incumbent_christoffersen_p",
+        "candidate_christoffersen_p",
+        "candidate_improved",
+        "is_eligible_ticker"
+      ],
+      "title": "DownstreamValueCell",
+      "type": "object"
+    },
+    "DownstreamValueSection": {
+      "additionalProperties": false,
+      "properties": {
+        "cells": {
+          "items": {
+            "$ref": "#/$defs/DownstreamValueCell"
+          },
+          "title": "Cells",
+          "type": "array"
+        },
+        "mechanical_decision": {
+          "$ref": "#/$defs/DecisionLabel"
+        },
+        "pre_registered_rule": {
+          "title": "Pre Registered Rule",
+          "type": "string"
+        },
+        "source_file": {
+          "default": "reports/downstream_value_probe/_summary.json",
+          "title": "Source File",
+          "type": "string"
+        },
+        "substantive_caveat": {
+          "description": "the honest, non-mechanical reading -- e.g. most cells remain miscalibrated regardless of the mechanical RETAIN verdict",
+          "title": "Substantive Caveat",
+          "type": "string"
+        }
+      },
+      "required": [
+        "cells",
+        "pre_registered_rule",
+        "mechanical_decision",
+        "substantive_caveat"
+      ],
+      "title": "DownstreamValueSection",
+      "type": "object"
+    },
+    "EstablishmentState": {
+      "description": "Used wherever a value may genuinely not exist yet. Never silently\nomitted -- a field using this enum is always PRESENT in the export,\njust carrying this instead of a fabricated real value.",
+      "enum": [
+        "ESTABLISHED",
+        "PENDING",
+        "NOT_ESTABLISHED"
+      ],
+      "title": "EstablishmentState",
+      "type": "string"
+    },
+    "GateState": {
+      "enum": [
+        "PASSED",
+        "FAILED",
+        "PENDING",
+        "NOT_ESTABLISHED"
+      ],
+      "title": "GateState",
+      "type": "string"
+    },
+    "HealthLimitationsSection": {
+      "additionalProperties": false,
+      "properties": {
+        "data_limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Data Limitations",
+          "type": "array"
+        },
+        "defects_found_and_fixed_this_arc": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Defects Found And Fixed This Arc",
+          "type": "array"
+        },
+        "independent_review_status": {
+          "$ref": "#/$defs/EstablishmentState"
+        },
+        "known_defects_outstanding": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Known Defects Outstanding",
+          "type": "array"
+        },
+        "model_specific_failure_modes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Model Specific Failure Modes",
+          "type": "array"
+        },
+        "prospective_evidence_limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Prospective Evidence Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "known_defects_outstanding",
+        "defects_found_and_fixed_this_arc",
+        "data_limitations",
+        "prospective_evidence_limitations",
+        "model_specific_failure_modes",
+        "independent_review_status"
+      ],
+      "title": "HealthLimitationsSection",
+      "type": "object"
+    },
+    "HistoricalCellResult": {
+      "additionalProperties": false,
+      "properties": {
+        "benchmark_model_id": {
+          "title": "Benchmark Model Id",
+          "type": "string"
+        },
+        "benchmark_qlike": {
+          "title": "Benchmark Qlike",
+          "type": "string"
+        },
+        "candidate_qlike": {
+          "title": "Candidate Qlike",
+          "type": "string"
+        },
+        "dm_p_value": {
+          "title": "Dm P Value",
+          "type": "string"
+        },
+        "horizon": {
+          "title": "Horizon",
+          "type": "integer"
+        },
+        "is_eligible": {
+          "title": "Is Eligible",
+          "type": "boolean"
+        },
+        "n_oos": {
+          "title": "N Oos",
+          "type": "integer"
+        },
+        "ticker": {
+          "title": "Ticker",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ticker",
+        "horizon",
+        "candidate_qlike",
+        "benchmark_qlike",
+        "benchmark_model_id",
+        "dm_p_value",
+        "n_oos",
+        "is_eligible"
+      ],
+      "title": "HistoricalCellResult",
+      "type": "object"
+    },
+    "HistoricalEvidenceSection": {
+      "additionalProperties": false,
+      "properties": {
+        "cells": {
+          "items": {
+            "$ref": "#/$defs/HistoricalCellResult"
+          },
+          "title": "Cells",
+          "type": "array"
+        },
+        "n_cells_no_significant_difference": {
+          "title": "N Cells No Significant Difference",
+          "type": "integer"
+        },
+        "n_cells_significant_better": {
+          "title": "N Cells Significant Better",
+          "type": "integer"
+        },
+        "n_cells_significant_worse": {
+          "title": "N Cells Significant Worse",
+          "type": "integer"
+        },
+        "negative_findings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Negative Findings",
+          "type": "array"
+        },
+        "regime_limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Regime Limitations",
+          "type": "array"
+        },
+        "source_files": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Files",
+          "type": "array"
+        }
+      },
+      "required": [
+        "cells",
+        "n_cells_significant_better",
+        "n_cells_significant_worse",
+        "n_cells_no_significant_difference",
+        "negative_findings",
+        "regime_limitations",
+        "source_files"
+      ],
+      "title": "HistoricalEvidenceSection",
+      "type": "object"
+    },
+    "LifecycleState": {
+      "enum": [
+        "RESEARCH",
+        "REPRODUCED",
+        "WALK_FORWARD",
+        "SHADOW",
+        "PROSPECTIVE_CHALLENGER",
+        "PROMOTION_ELIGIBLE",
+        "PROMOTED",
+        "REJECTED",
+        "SUPERSEDED",
+        "DEGRADED",
+        "QUARANTINED"
+      ],
+      "title": "LifecycleState",
+      "type": "string"
+    },
+    "ModelIdentitySection": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_code_fingerprint": {
+          "description": "sha256 of the concatenated, sorted source files that DEFINE the candidate (vol/combination.py, vol/candidate_spec.py, vol/garch_models.py, vol/baselines.py) -- identifies THIS version of the candidate independent of which ticker/day it is run against, unlike a per-run ModelVersion.model_version_hash (which depends on that run's own fold parameters).",
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Candidate Code Fingerprint",
+          "type": "string"
+        },
+        "family": {
+          "title": "Family",
+          "type": "string"
+        },
+        "generated_at_utc": {
+          "format": "date-time",
+          "title": "Generated At Utc",
+          "type": "string"
+        },
+        "git_branch": {
+          "title": "Git Branch",
+          "type": "string"
+        },
+        "git_commit": {
+          "title": "Git Commit",
+          "type": "string"
+        },
+        "lifecycle_state": {
+          "$ref": "#/$defs/LifecycleState"
+        },
+        "model_id": {
+          "title": "Model Id",
+          "type": "string"
+        },
+        "per_ticker_shadow_model_version_hash": {
+          "additionalProperties": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "description": "model_id (vol/garch_models.py-style, PER TICKER) -> the real ModelVersion.model_version_hash from the most recent shadow snapshot run (shadow/build_combo.py); empty if no snapshot has been taken for that ticker yet.",
+          "title": "Per Ticker Shadow Model Version Hash",
+          "type": "object"
+        },
+        "working_tree_dirty": {
+          "title": "Working Tree Dirty",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "model_id",
+        "family",
+        "lifecycle_state",
+        "git_commit",
+        "git_branch",
+        "working_tree_dirty",
+        "candidate_code_fingerprint",
+        "per_ticker_shadow_model_version_hash",
+        "generated_at_utc"
+      ],
+      "title": "ModelIdentitySection",
+      "type": "object"
+    },
+    "ModelPurposeSection": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_combination_rule": {
+          "title": "Candidate Combination Rule",
+          "type": "string"
+        },
+        "candidate_constituents": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Candidate Constituents",
+          "type": "array"
+        },
+        "candidate_strongest_benchmark": {
+          "title": "Candidate Strongest Benchmark",
+          "type": "string"
+        },
+        "challenger_relationship": {
+          "description": "factual, non-promotional description of what kind of challenger this is",
+          "title": "Challenger Relationship",
+          "type": "string"
+        },
+        "frozen_incumbents": {
+          "description": "T-VOL's own frozen incumbents list (tasks/registry.py)",
+          "items": {
+            "type": "string"
+          },
+          "title": "Frozen Incumbents",
+          "type": "array"
+        },
+        "horizons_days": {
+          "items": {
+            "type": "integer"
+          },
+          "title": "Horizons Days",
+          "type": "array"
+        },
+        "naive_benchmark": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Naive Benchmark"
+        },
+        "primary_score": {
+          "title": "Primary Score",
+          "type": "string"
+        },
+        "target_variable": {
+          "title": "Target Variable",
+          "type": "string"
+        },
+        "task_id": {
+          "title": "Task Id",
+          "type": "string"
+        },
+        "task_status": {
+          "description": "the real, frozen Task.status value (tasks/registry.py)",
+          "title": "Task Status",
+          "type": "string"
+        },
+        "universe": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Universe",
+          "type": "array"
+        }
+      },
+      "required": [
+        "task_id",
+        "task_status",
+        "target_variable",
+        "horizons_days",
+        "universe",
+        "primary_score",
+        "naive_benchmark",
+        "frozen_incumbents",
+        "candidate_constituents",
+        "candidate_combination_rule",
+        "candidate_strongest_benchmark",
+        "challenger_relationship"
+      ],
+      "title": "ModelPurposeSection",
+      "type": "object"
+    },
+    "PromotionGateEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence": {
+          "title": "Evidence",
+          "type": "string"
+        },
+        "gate_id": {
+          "title": "Gate Id",
+          "type": "string"
+        },
+        "maps_to_lifecycle_state": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Maps To Lifecycle State"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "state": {
+          "$ref": "#/$defs/GateState"
+        }
+      },
+      "required": [
+        "gate_id",
+        "name",
+        "state",
+        "evidence"
+      ],
+      "title": "PromotionGateEntry",
+      "type": "object"
+    },
+    "PromotionGatesSection": {
+      "additionalProperties": false,
+      "properties": {
+        "amc_promotion_authorized": {
+          "description": "MUST always be False; enforced by a test",
+          "title": "Amc Promotion Authorized",
+          "type": "boolean"
+        },
+        "gates": {
+          "items": {
+            "$ref": "#/$defs/PromotionGateEntry"
+          },
+          "title": "Gates",
+          "type": "array"
+        },
+        "source_document": {
+          "default": "reports/MODEL2_PROMOTION_GATES.md",
+          "title": "Source Document",
+          "type": "string"
+        }
+      },
+      "required": [
+        "gates",
+        "amc_promotion_authorized"
+      ],
+      "title": "PromotionGatesSection",
+      "type": "object"
+    },
+    "ProspectiveEvidenceSection": {
+      "additionalProperties": false,
+      "properties": {
+        "historical_vs_prospective_note": {
+          "title": "Historical Vs Prospective Note",
+          "type": "string"
+        },
+        "n_pending_observations": {
+          "title": "N Pending Observations",
+          "type": "integer"
+        },
+        "n_resolved_non_replay_observations": {
+          "title": "N Resolved Non Replay Observations",
+          "type": "integer"
+        },
+        "observations": {
+          "items": {
+            "$ref": "#/$defs/ProspectiveObservationRef"
+          },
+          "title": "Observations",
+          "type": "array"
+        },
+        "sufficiency_state": {
+          "$ref": "#/$defs/EstablishmentState",
+          "description": "whether enough prospective evidence exists for a promotion-relevant statistical claim -- see promotion_gates section; NOT_ESTABLISHED at small N by design"
+        }
+      },
+      "required": [
+        "n_resolved_non_replay_observations",
+        "n_pending_observations",
+        "observations",
+        "sufficiency_state",
+        "historical_vs_prospective_note"
+      ],
+      "title": "ProspectiveEvidenceSection",
+      "type": "object"
+    },
+    "ProspectiveObservationRef": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_forecast_error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Candidate Forecast Error"
+        },
+        "information_cutoff_date": {
+          "title": "Information Cutoff Date",
+          "type": "string"
+        },
+        "is_historical_replay": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Is Historical Replay"
+        },
+        "pending_observation_hash": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Pending Observation Hash",
+          "type": "string"
+        },
+        "resolved_target_date": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Resolved Target Date"
+        },
+        "status": {
+          "description": "'PENDING' or 'RESOLVED'",
+          "title": "Status",
+          "type": "string"
+        },
+        "ticker": {
+          "title": "Ticker",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ticker",
+        "information_cutoff_date",
+        "status",
+        "pending_observation_hash"
+      ],
+      "title": "ProspectiveObservationRef",
+      "type": "object"
+    },
+    "ProvenanceSection": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_manifest_file": {
+          "default": "reports/MODEL2_EVIDENCE_MANIFEST.json",
+          "title": "Evidence Manifest File",
+          "type": "string"
+        },
+        "evidence_manifest_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Evidence Manifest Sha256",
+          "type": "string"
+        },
+        "literature_references": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Literature References",
+          "type": "array"
+        },
+        "reproduction_commands": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reproduction Commands",
+          "type": "array"
+        },
+        "test_suite_command": {
+          "title": "Test Suite Command",
+          "type": "string"
+        },
+        "test_suite_last_known_result": {
+          "title": "Test Suite Last Known Result",
+          "type": "string"
+        }
+      },
+      "required": [
+        "evidence_manifest_sha256",
+        "test_suite_command",
+        "test_suite_last_known_result",
+        "literature_references",
+        "reproduction_commands"
+      ],
+      "title": "ProvenanceSection",
+      "type": "object"
+    },
+    "ResearchLedgerEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "decision": {
+          "$ref": "#/$defs/DecisionLabel"
+        },
+        "evidence": {
+          "title": "Evidence",
+          "type": "string"
+        },
+        "experiment": {
+          "title": "Experiment",
+          "type": "string"
+        },
+        "index": {
+          "title": "Index",
+          "type": "integer"
+        },
+        "phase": {
+          "title": "Phase",
+          "type": "string"
+        },
+        "reason": {
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "index",
+        "phase",
+        "experiment",
+        "decision",
+        "reason",
+        "evidence"
+      ],
+      "title": "ResearchLedgerEntry",
+      "type": "object"
+    },
+    "ResearchLedgerSection": {
+      "additionalProperties": false,
+      "properties": {
+        "entries": {
+          "items": {
+            "$ref": "#/$defs/ResearchLedgerEntry"
+          },
+          "title": "Entries",
+          "type": "array"
+        },
+        "n_descriptive_or_definitional": {
+          "title": "N Descriptive Or Definitional",
+          "type": "integer"
+        },
+        "n_reject_or_inconclusive": {
+          "title": "N Reject Or Inconclusive",
+          "type": "integer"
+        },
+        "n_retain": {
+          "title": "N Retain",
+          "type": "integer"
+        },
+        "source_document": {
+          "default": "reports/MODEL2_RESEARCH_LEDGER.md",
+          "title": "Source Document",
+          "type": "string"
+        }
+      },
+      "required": [
+        "entries",
+        "n_retain",
+        "n_reject_or_inconclusive",
+        "n_descriptive_or_definitional"
+      ],
+      "title": "ResearchLedgerSection",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "candidate_definition": {
+      "$ref": "#/$defs/CandidateDefinitionSection"
+    },
+    "charts": {
+      "items": {
+        "$ref": "#/$defs/ChartSpec"
+      },
+      "title": "Charts",
+      "type": "array"
+    },
+    "confidence_abstention": {
+      "$ref": "#/$defs/ConfidenceAbstentionSection"
+    },
+    "downstream_value": {
+      "$ref": "#/$defs/DownstreamValueSection"
+    },
+    "export_sha256": {
+      "description": "self-referential: sha256 of this document's own canonical JSON, EXCLUDING this field -- see command_center_export/builder.py for computation",
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Export Sha256",
+      "type": "string"
+    },
+    "health_limitations": {
+      "$ref": "#/$defs/HealthLimitationsSection"
+    },
+    "historical_evidence": {
+      "$ref": "#/$defs/HistoricalEvidenceSection"
+    },
+    "identity": {
+      "$ref": "#/$defs/ModelIdentitySection"
+    },
+    "promotion_gates": {
+      "$ref": "#/$defs/PromotionGatesSection"
+    },
+    "prospective_evidence": {
+      "$ref": "#/$defs/ProspectiveEvidenceSection"
+    },
+    "provenance": {
+      "$ref": "#/$defs/ProvenanceSection"
+    },
+    "purpose": {
+      "$ref": "#/$defs/ModelPurposeSection"
+    },
+    "research_ledger": {
+      "$ref": "#/$defs/ResearchLedgerSection"
+    },
+    "schema_name": {
+      "default": "Model2CommandCenterExport",
+      "title": "Schema Name",
+      "type": "string"
+    },
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "identity",
+    "purpose",
+    "candidate_definition",
+    "historical_evidence",
+    "prospective_evidence",
+    "downstream_value",
+    "confidence_abstention",
+    "research_ledger",
+    "promotion_gates",
+    "provenance",
+    "health_limitations",
+    "export_sha256"
+  ],
+  "title": "Model2CommandCenterExport",
+  "type": "object"
+}

@@ -1,0 +1,88 @@
+[project]
+name = "heimdall-model-lab"
+version = "0.1.0"
+description = "Forecast evaluation, model comparison and validation layer: DM/SPA/MCS tests, conformal intervals, e-processes, purged splits, Gate v2 and an evidence ledger."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Francisco (original implementation)" }]
+maintainers = [{ name = "Guillem Cucurull Llovera" }]
+keywords = ["forecast-evaluation", "model-comparison", "conformal-prediction", "backtesting", "volatility"]
+classifiers = [
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Mathematics",
+]
+
+dependencies = [
+    "arch>=7.0,<8",
+    "statsmodels>=0.14,<1",
+    "pydantic>=2.9,<3",
+    "numpy>=2.1,<3",
+    "scipy>=1.14,<2",
+    "scikit-learn>=1.5,<2",
+    "pandas>=2.2,<3",
+    "httpx>=0.27,<1",
+    "python-dateutil>=2.9,<3",
+    "orjson>=3.10,<4",
+    "click>=8.1,<9",
+    "pandas-market-calendars>=5.4.0",
+]
+
+[project.optional-dependencies]
+stats = [
+    "arch>=7.0,<8",
+    "statsmodels>=0.14,<1",
+]
+splitter-oracle = [
+    "skfolio>=0.7,<1",
+    "timeseriescv",
+]
+dev = [
+    "pytest>=9.0.3,<10",
+    "pytest-cov>=5.0,<6",
+    "hypothesis>=6.112,<7",
+    "ruff>=0.6,<1",
+    "mypy>=1.11,<2",
+]
+
+[project.scripts]
+model-lab-ledger = "model_lab.ledger.cli:main"
+model-lab-gate = "model_lab.gate_v2.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/guillemcucurullllovera/heimdall-model-lab"
+Issues = "https://github.com/guillemcucurullllovera/heimdall-model-lab/issues"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/model_lab"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = false
+warn_unused_ignores = true
+ignore_missing_imports = true
+exclude = ["tests/"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "acceptance: MODEL-1 acceptance tests (AT-01..AT-17)",
+    "dogfood: synthetic dogfooding controls (AT-16)",
+    "network: tests that call real external provider APIs (opt-in only)",
+    "slow: tests that take several minutes (real GARCH/EGARCH fits across many tickers/models)",
+]
+addopts = "-ra"

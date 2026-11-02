@@ -1,0 +1,67 @@
+{
+  "$defs": {
+    "DataAuthority": {
+      "enum": [
+        "PROVISIONAL",
+        "UNAVAILABLE"
+      ],
+      "title": "DataAuthority",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "manifest.json: SHA-256 of every published file + ledger head + model\nversion hash. `data_authority = PROVISIONAL` is asserted only when every\nlisted file's hash recomputes at read time (checked by\npublish/verify.py, not here).",
+  "properties": {
+    "data_authority": {
+      "$ref": "#/$defs/DataAuthority"
+    },
+    "file_hashes": {
+      "additionalProperties": {
+        "pattern": "^[0-9a-f]{64}$",
+        "type": "string"
+      },
+      "description": "relative path -> sha256 of file bytes",
+      "title": "File Hashes",
+      "type": "object"
+    },
+    "ledger_head_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Ledger Head Hash",
+      "type": "string"
+    },
+    "model_id": {
+      "title": "Model Id",
+      "type": "string"
+    },
+    "model_version_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Model Version Hash",
+      "type": "string"
+    },
+    "published_at_utc": {
+      "format": "date-time",
+      "title": "Published At Utc",
+      "type": "string"
+    },
+    "schema_name": {
+      "default": "PublicationManifest",
+      "title": "Schema Name",
+      "type": "string"
+    },
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "model_id",
+    "model_version_hash",
+    "ledger_head_hash",
+    "published_at_utc",
+    "file_hashes",
+    "data_authority"
+  ],
+  "title": "PublicationManifest",
+  "type": "object"
+}

@@ -1,0 +1,812 @@
+{
+  "$defs": {
+    "AcquisitionStatus": {
+      "enum": [
+        "OK",
+        "PARTIAL",
+        "ERROR",
+        "STALE",
+        "ENTITLEMENT_DENIED"
+      ],
+      "title": "AcquisitionStatus",
+      "type": "string"
+    },
+    "DataQualityFlag": {
+      "enum": [
+        "crossed",
+        "locked",
+        "zero_bid",
+        "wide_spread",
+        "stale_quote",
+        "missing_iv",
+        "extreme_iv",
+        "off_market_underlying"
+      ],
+      "title": "DataQualityFlag",
+      "type": "string"
+    },
+    "DerivedAnalytics": {
+      "additionalProperties": false,
+      "properties": {
+        "american_adjustment_method": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "American Adjustment Method"
+        },
+        "dividend_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Dividend Source"
+        },
+        "dividend_yield_or_schedule": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Dividend Yield Or Schedule"
+        },
+        "forward": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Forward"
+        },
+        "greeks_own": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Greeks Own"
+        },
+        "iv_mid_bs": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Iv Mid Bs"
+        },
+        "iv_solver_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Iv Solver Version"
+        },
+        "rate": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rate"
+        },
+        "rate_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rate Source"
+        }
+      },
+      "title": "DerivedAnalytics",
+      "type": "object"
+    },
+    "ExerciseStyle": {
+      "enum": [
+        "american",
+        "european"
+      ],
+      "title": "ExerciseStyle",
+      "type": "string"
+    },
+    "LicenceStatus": {
+      "description": "Assigned to a *source* (a provider/series), per the R1b terms audit.",
+      "enum": [
+        "CLEAR",
+        "UNRESOLVED",
+        "RESTRICTED"
+      ],
+      "title": "LicenceStatus",
+      "type": "string"
+    },
+    "MarketState": {
+      "additionalProperties": false,
+      "properties": {
+        "oi_as_of_utc": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Oi As Of Utc"
+        },
+        "open_interest": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Open Interest"
+        },
+        "volume": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Volume"
+        }
+      },
+      "title": "MarketState",
+      "type": "object"
+    },
+    "MidDerivation": {
+      "additionalProperties": false,
+      "properties": {
+        "crossed": {
+          "default": false,
+          "title": "Crossed",
+          "type": "boolean"
+        },
+        "derived": {
+          "description": "True if computed as (bid+ask)/2; False if unavailable",
+          "title": "Derived",
+          "type": "boolean"
+        },
+        "mid": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Mid"
+        }
+      },
+      "required": [
+        "derived"
+      ],
+      "title": "MidDerivation",
+      "type": "object"
+    },
+    "ObservationKind": {
+      "enum": [
+        "AMC_DISCOVERY",
+        "AMC_VALIDATION",
+        "OTHER"
+      ],
+      "title": "ObservationKind",
+      "type": "string"
+    },
+    "OptionContractSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "deliverable_notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Deliverable Notes"
+        },
+        "expiry": {
+          "format": "date",
+          "title": "Expiry",
+          "type": "string"
+        },
+        "multiplier": {
+          "default": 100,
+          "title": "Multiplier",
+          "type": "integer"
+        },
+        "occ_symbol": {
+          "title": "Occ Symbol",
+          "type": "string"
+        },
+        "right": {
+          "$ref": "#/$defs/OptionRight"
+        },
+        "strike": {
+          "title": "Strike",
+          "type": "string"
+        },
+        "style": {
+          "$ref": "#/$defs/ExerciseStyle"
+        }
+      },
+      "required": [
+        "occ_symbol",
+        "expiry",
+        "strike",
+        "right",
+        "style"
+      ],
+      "title": "OptionContractSpec",
+      "type": "object"
+    },
+    "OptionLicenceInfo": {
+      "additionalProperties": false,
+      "properties": {
+        "basis_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Basis Url"
+        },
+        "checked_utc": {
+          "format": "date-time",
+          "title": "Checked Utc",
+          "type": "string"
+        },
+        "permitted_use_note": {
+          "title": "Permitted Use Note",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/LicenceStatus"
+        }
+      },
+      "required": [
+        "status",
+        "checked_utc",
+        "permitted_use_note"
+      ],
+      "title": "OptionLicenceInfo",
+      "type": "object"
+    },
+    "OptionQuote": {
+      "additionalProperties": false,
+      "properties": {
+        "ask": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ask"
+        },
+        "ask_size": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ask Size"
+        },
+        "bid": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bid"
+        },
+        "bid_size": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bid Size"
+        },
+        "exchange_flags": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Exchange Flags",
+          "type": "array"
+        },
+        "last": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Last"
+        },
+        "last_time_utc": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Last Time Utc"
+        },
+        "quote_age_s": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "whole seconds; see UnderlyingObservation.price_age_s for why not float",
+          "title": "Quote Age S"
+        },
+        "quote_time_utc": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "only set if the vendor supplies it (rule 3); never inferred",
+          "title": "Quote Time Utc"
+        }
+      },
+      "title": "OptionQuote",
+      "type": "object"
+    },
+    "OptionRight": {
+      "enum": [
+        "call",
+        "put"
+      ],
+      "title": "OptionRight",
+      "type": "string"
+    },
+    "RawRef": {
+      "additionalProperties": false,
+      "properties": {
+        "byte_length": {
+          "minimum": 0,
+          "title": "Byte Length",
+          "type": "integer"
+        },
+        "content_addressed_path": {
+          "title": "Content Addressed Path",
+          "type": "string"
+        }
+      },
+      "required": [
+        "content_addressed_path",
+        "byte_length"
+      ],
+      "title": "RawRef",
+      "type": "object"
+    },
+    "ReplayGrade": {
+      "description": "Whether a vendor-supplied quote_time_utc is present. NOTE: this is a\nnarrow, mechanical signal (rule 3 of \u00a718a) \u2014 it says a genuine\nno-hindsight replay is *technically possible* for this record because we\nknow when the quote was actually taken, not that the archive as a whole\nis sufficient for a no-hindsight replay *study* (other limitations \u2014\nsingle-date coverage, no later quotes to compare against, indicative\nvs NBBO \u2014 are tracked separately via data_quality_flags and\nlicence.permitted_use_note).",
+      "enum": [
+        "VENDOR_QUOTE_TIMESTAMPED",
+        "FETCH_TIME_ONLY"
+      ],
+      "title": "ReplayGrade",
+      "type": "string"
+    },
+    "UnderlyingObservation": {
+      "additionalProperties": false,
+      "properties": {
+        "price": {
+          "title": "Price",
+          "type": "string"
+        },
+        "price_age_s": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "whole seconds; sub-second precision is not needed and floats can't be JCS-hashed (see canon/jcs.py)",
+          "title": "Price Age S"
+        },
+        "price_source": {
+          "title": "Price Source",
+          "type": "string"
+        },
+        "price_time_utc": {
+          "format": "date-time",
+          "title": "Price Time Utc",
+          "type": "string"
+        },
+        "symbol": {
+          "title": "Symbol",
+          "type": "string"
+        }
+      },
+      "required": [
+        "symbol",
+        "price",
+        "price_source",
+        "price_time_utc"
+      ],
+      "title": "UnderlyingObservation",
+      "type": "object"
+    },
+    "VendorGreeks": {
+      "additionalProperties": false,
+      "properties": {
+        "as_of": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "As Of"
+        },
+        "delta": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Delta"
+        },
+        "gamma": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Gamma"
+        },
+        "iv": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Iv"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "vendor-documented pricing model, if named",
+          "title": "Model"
+        },
+        "rho": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rho"
+        },
+        "theta": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Theta"
+        },
+        "vega": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Vega"
+        }
+      },
+      "title": "VendorGreeks",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "acquisition_status": {
+      "$ref": "#/$defs/AcquisitionStatus"
+    },
+    "amc_cycle_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Amc Cycle Id"
+    },
+    "amc_experiment_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Amc Experiment Id"
+    },
+    "archive_seq": {
+      "minimum": 0,
+      "title": "Archive Seq",
+      "type": "integer"
+    },
+    "contract": {
+      "$ref": "#/$defs/OptionContractSpec"
+    },
+    "data_quality_flags": {
+      "items": {
+        "$ref": "#/$defs/DataQualityFlag"
+      },
+      "title": "Data Quality Flags",
+      "type": "array"
+    },
+    "derived": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DerivedAnalytics"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "licence": {
+      "$ref": "#/$defs/OptionLicenceInfo"
+    },
+    "market_state": {
+      "$ref": "#/$defs/MarketState"
+    },
+    "mid": {
+      "$ref": "#/$defs/MidDerivation"
+    },
+    "normalized_rows_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Normalized Rows Sha256",
+      "type": "string"
+    },
+    "observation_kind": {
+      "$ref": "#/$defs/ObservationKind"
+    },
+    "observation_utc": {
+      "format": "date-time",
+      "title": "Observation Utc",
+      "type": "string"
+    },
+    "prev_hash": {
+      "anyOf": [
+        {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Prev Hash"
+    },
+    "provider_feed": {
+      "title": "Provider Feed",
+      "type": "string"
+    },
+    "provider_id": {
+      "title": "Provider Id",
+      "type": "string"
+    },
+    "quote": {
+      "$ref": "#/$defs/OptionQuote"
+    },
+    "raw_ref": {
+      "$ref": "#/$defs/RawRef"
+    },
+    "record_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Record Hash",
+      "type": "string"
+    },
+    "replay_grade": {
+      "$ref": "#/$defs/ReplayGrade",
+      "description": "FETCH_TIME_ONLY unless quote.quote_time_utc is vendor-supplied (rule 3)"
+    },
+    "request_fingerprint": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Request Fingerprint"
+    },
+    "response_fingerprint": {
+      "description": "sha256 of raw bytes",
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Response Fingerprint",
+      "type": "string"
+    },
+    "schema_name": {
+      "default": "OptionSnapshotRecord",
+      "title": "Schema Name",
+      "type": "string"
+    },
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "underlying": {
+      "$ref": "#/$defs/UnderlyingObservation"
+    },
+    "vendor_greeks": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/VendorGreeks"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "archive_seq",
+    "record_hash",
+    "observation_utc",
+    "observation_kind",
+    "provider_id",
+    "provider_feed",
+    "response_fingerprint",
+    "normalized_rows_sha256",
+    "acquisition_status",
+    "licence",
+    "underlying",
+    "contract",
+    "quote",
+    "mid",
+    "market_state",
+    "raw_ref",
+    "replay_grade"
+  ],
+  "title": "OptionSnapshotRecord",
+  "type": "object"
+}

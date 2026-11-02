@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "Please cite this research software and the underlying methods."
+title: "Heimdall Model Lab"
+type: software
+version: 0.1.0
+license: Apache-2.0
+authors:
+  - name: "Francisco (original implementation attribution)"
+  - family-names: "Cucurull Llovera"
+    given-names: "Guillem"
+repository-code: "https://github.com/guillemcucurullllovera/heimdall-model-lab"
